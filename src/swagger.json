@@ -926,7 +926,7 @@
         "operationId": "upload",
         "responses": {},
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -964,7 +964,7 @@
         }
       ]
     },
-    "/projects/{projectId}/{baseId}/tables": {
+    "/projects/{projectId}/tables": {
       "parameters": [
         {
           "schema": {
@@ -985,7 +985,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "table-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK",
@@ -1057,11 +1057,11 @@
           }
         ],
         "tags": [
-          "Meta"
+          "Db table"
         ]
       }
     },
-    "/projects/{projectId}/{baseId}/metaDiff": {
+    "/projects/{projectId}/metaDiff": {
       "parameters": [
         {
           "schema": {
@@ -1094,7 +1094,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Project"
         ]
       },
       "get": {
@@ -1129,7 +1129,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "table-read",
+        "operationId": "read",
         "responses": {
           "200": {
             "description": "OK",
@@ -1233,7 +1233,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table"
         ]
       },
       "put": {
@@ -1250,7 +1250,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table"
         ],
         "requestBody": {
           "content": {
@@ -1269,14 +1269,14 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "table-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table"
         ],
         "description": ""
       }
@@ -1332,7 +1332,7 @@
       ],
       "get": {
         "summary": "Column List",
-        "operationId": "column-list",
+        "operationId": "list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/ColumnList"
@@ -1350,7 +1350,7 @@
         },
         "description": "Read project details",
         "tags": [
-          "Meta"
+          "Db table column"
         ]
       },
       "post": {
@@ -1410,7 +1410,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table column"
         ]
       }
     },
@@ -1435,7 +1435,7 @@
       ],
       "get": {
         "summary": "Column Read",
-        "operationId": "column-read",
+        "operationId": "read",
         "responses": {
           "200": {
             "description": "OK",
@@ -1450,12 +1450,12 @@
         },
         "description": "Read project details",
         "tags": [
-          "Meta"
+          "Db table column"
         ]
       },
       "put": {
         "summary": "Column Update",
-        "operationId": "column-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK",
@@ -1478,19 +1478,19 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table column"
         ]
       },
       "delete": {
         "summary": "",
-        "operationId": "column-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table column"
         ]
       }
     },
@@ -1515,14 +1515,14 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "table-primary-column-set",
+        "operationId": "primary-column-set",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "meta"
+          "Db table column"
         ]
       }
     },
@@ -1539,7 +1539,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "view-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK"
@@ -1574,19 +1574,19 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       },
       "delete": {
         "summary": "",
-        "operationId": "view-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "meta"
+          "Db view"
         ]
       }
     },
@@ -1603,24 +1603,24 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "view-column-list",
+        "operationId": "list",
         "responses": {
           "200": {}
         },
         "tags": [
-          "Meta"
+          "Db view column"
         ]
       },
       "post": {
         "summary": "",
-        "operationId": "view-column-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db view column"
         ],
         "requestBody": {
           "content": {
@@ -1644,14 +1644,14 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "view-show-all-column",
+        "operationId": "show-all-column",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "description": "",
         "parameters": [
@@ -1678,14 +1678,14 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "view-hide-all-column",
+        "operationId": "hide-all-column",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db view column"
         ],
         "parameters": [
           {
@@ -1720,7 +1720,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "view-column-read",
+        "operationId": "read",
         "responses": {
           "200": {
             "description": "OK",
@@ -1732,19 +1732,19 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view column"
         ]
       },
       "put": {
         "summary": "",
-        "operationId": "view-column-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db view column"
         ],
         "requestBody": {
           "content": {
@@ -1768,7 +1768,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "share-view-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK",
@@ -1787,12 +1787,12 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view share"
         ]
       },
       "put": {
         "summary": "",
-        "operationId": "shared-view-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK",
@@ -1821,7 +1821,7 @@
           "description": ""
         },
         "tags": [
-          "meta"
+          "Db view share"
         ]
       },
       "delete": {
@@ -1834,7 +1834,7 @@
         },
         "description": "",
         "tags": [
-          "meta"
+          "Db view"
         ]
       }
     },
@@ -1851,7 +1851,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "shared-view-list",
+        "operationId": "list",
         "responses": {
           "200": {
             "description": "OK",
@@ -1867,7 +1867,7 @@
         },
         "description": "",
         "tags": [
-          "meta"
+          "Db view share"
         ]
       }
     },
@@ -1884,7 +1884,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "sort-list",
+        "operationId": "list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/SortList"
@@ -1908,19 +1908,19 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table sort"
         ]
       },
       "post": {
         "summary": "",
-        "operationId": "sort-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table sort"
         ],
         "requestBody": {
           "content": {
@@ -1954,7 +1954,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "sort-get",
+        "operationId": "get",
         "responses": {
           "200": {
             "description": "OK",
@@ -1968,19 +1968,19 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table sort"
         ]
       },
       "put": {
         "summary": "",
-        "operationId": "sort-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table sort"
         ],
         "requestBody": {
           "content": {
@@ -1994,14 +1994,14 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "sort-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table sort"
         ]
       }
     },
@@ -2018,26 +2018,26 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "filter-read",
+        "operationId": "read",
         "responses": {
           "200": {
             "$ref": "#/components/responses/FilterList"
           }
         },
         "tags": [
-          "Meta"
+          "Db table filter"
         ]
       },
       "post": {
         "summary": "",
-        "operationId": "filter-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table filter"
         ],
         "requestBody": {
           "content": {
@@ -2071,7 +2071,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "filter-get",
+        "operationId": "get",
         "responses": {
           "200": {
             "description": "OK",
@@ -2085,19 +2085,19 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table filter"
         ]
       },
       "put": {
         "summary": "",
-        "operationId": "filter-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table filter"
         ],
         "requestBody": {
           "content": {
@@ -2111,14 +2111,14 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "filter-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table filter"
         ]
       }
     },
@@ -2143,7 +2143,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "filter-children-read",
+        "operationId": "children-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -2157,7 +2157,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table filter"
         ]
       }
     },
@@ -2174,19 +2174,19 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "hook-filter-read",
+        "operationId": "read",
         "responses": {
           "200": {
             "$ref": "#/components/responses/FilterList"
           }
         },
         "tags": [
-          "Meta"
+          "Db table webhook filter"
         ]
       },
       "post": {
         "summary": "",
-        "operationId": "hook-filter-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK"
@@ -2227,7 +2227,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "hook-filter-get",
+        "operationId": "get",
         "responses": {
           "200": {
             "description": "OK",
@@ -2241,19 +2241,19 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table webhook filter"
         ]
       },
       "put": {
         "summary": "",
-        "operationId": "hook-filter-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table webhook filter"
         ],
         "requestBody": {
           "content": {
@@ -2267,14 +2267,14 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "hook-filter-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Meta"
+          "Db table webhook filter"
         ]
       }
     },
@@ -2299,7 +2299,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "hook-filter-children-read",
+        "operationId": "children-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -2313,7 +2313,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table webhook filter"
         ]
       }
     },
@@ -2344,7 +2344,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -2385,7 +2385,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       },
       "delete": {
@@ -2397,7 +2397,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       },
       "get": {
@@ -2409,7 +2409,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       }
     },
@@ -2441,7 +2441,7 @@
         },
         "description": "",
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -2474,7 +2474,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -2502,7 +2502,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       }
     },
@@ -2533,7 +2533,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -2576,7 +2576,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       }
     },
@@ -2614,7 +2614,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -2655,7 +2655,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -2688,7 +2688,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "requestBody": {
           "content": {
@@ -2709,7 +2709,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       },
       "get": {
@@ -2728,7 +2728,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       }
     },
@@ -2752,7 +2752,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       }
     },
@@ -2784,7 +2784,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       },
       "delete": {
@@ -2796,7 +2796,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       },
       "get": {
@@ -2808,7 +2808,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ]
       }
     },
@@ -2825,14 +2825,14 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "views-list",
+        "operationId": "list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/ViewList"
           }
         },
         "tags": [
-          "Meta"
+          "Db view"
         ],
         "description": ""
       }
@@ -2920,10 +2920,10 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "model-list",
+        "operationId": "list",
         "description": "",
         "tags": [
-          "Data"
+          "Db table row"
         ],
         "parameters": [
           {
@@ -2961,7 +2961,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "model-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK",
@@ -2973,7 +2973,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db table row"
         ],
         "requestBody": {
           "content": {
@@ -3021,10 +3021,10 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "view-list",
+        "operationId": "list",
         "description": "",
         "tags": [
-          "Data"
+          "Db view row"
         ],
         "parameters": [
           {
@@ -3068,7 +3068,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "view-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK",
@@ -3080,7 +3080,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db view row"
         ],
         "requestBody": {
           "content": {
@@ -3946,7 +3946,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "view-read",
+        "operationId": "read",
         "responses": {
           "201": {
             "description": "Created",
@@ -3959,12 +3959,12 @@
         },
         "description": "",
         "tags": [
-          "Data"
+          "Db view row"
         ]
       },
       "put": {
         "summary": "",
-        "operationId": "view-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK",
@@ -3976,7 +3976,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db view row"
         ],
         "requestBody": {
           "content": {
@@ -3988,14 +3988,14 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "view-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "Data"
+          "Db view row"
         ],
         "description": ""
       }
@@ -4037,7 +4037,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "model-read",
+        "operationId": "read",
         "responses": {
           "201": {
             "description": "Created",
@@ -4050,12 +4050,12 @@
         },
         "description": "",
         "tags": [
-          "Data"
+          "Db table row"
         ]
       },
       "put": {
         "summary": "",
-        "operationId": "model-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK",
@@ -4067,7 +4067,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db table row"
         ],
         "requestBody": {
           "content": {
@@ -4086,7 +4086,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db table row"
         ],
         "description": ""
       }
@@ -4140,7 +4140,7 @@
           }
         ],
         "tags": [
-          "Meta"
+          "Utils"
         ]
       },
       "post": {
@@ -4177,7 +4177,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Utils"
         ]
       }
     },
@@ -4223,7 +4223,7 @@
           }
         ],
         "tags": [
-          "Meta"
+          "Utils"
         ]
       }
     },
@@ -4320,7 +4320,7 @@
           }
         ],
         "tags": [
-          "Meta"
+          "Utils"
         ]
       }
     },
@@ -4335,7 +4335,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Utils"
         ],
         "requestBody": {
           "content": {
@@ -4378,7 +4378,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "hook-list",
+        "operationId": "list",
         "responses": {
           "200": {
             "description": "OK",
@@ -4418,12 +4418,12 @@
         "description": "",
         "parameters": [],
         "tags": [
-          "Meta"
+          "Db table webhook"
         ]
       },
       "post": {
         "summary": "",
-        "operationId": "hook-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK",
@@ -4447,7 +4447,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table webhook"
         ]
       }
     },
@@ -4464,7 +4464,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "hook-test",
+        "operationId": "test",
         "responses": {
           "200": {
             "description": "OK",
@@ -4476,7 +4476,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Db table webhook"
         ],
         "requestBody": {
           "content": {
@@ -4514,7 +4514,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "hook-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK",
@@ -4528,7 +4528,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Db table webhook"
         ],
         "requestBody": {
           "content": {
@@ -4542,14 +4542,14 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "hook-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "meta"
+          "Db table webhook"
         ]
       }
     },
@@ -4593,7 +4593,7 @@
         "description": "",
         "parameters": [],
         "tags": [
-          "Meta"
+          "Plugin"
         ]
       }
     },
@@ -4626,7 +4626,7 @@
         "description": "Check plugin is active or not",
         "parameters": [],
         "tags": [
-          "Meta"
+          "Plugin"
         ]
       }
     },
@@ -4656,7 +4656,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "hooks-sample-payload-get",
+        "operationId": "sample-payload-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -4701,7 +4701,7 @@
         "description": "",
         "parameters": [],
         "tags": [
-          "Meta"
+          "Db table webhook"
         ]
       }
     },
@@ -4736,7 +4736,7 @@
         "description": "",
         "parameters": [],
         "tags": [
-          "Meta"
+          "Plugin"
         ],
         "requestBody": {
           "content": {
@@ -4788,7 +4788,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Plugin"
         ],
         "requestBody": {
           "content": {
@@ -4816,7 +4816,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Plugin"
         ]
       }
     },
@@ -4846,7 +4846,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Plugin"
         ],
         "requestBody": {
           "content": {
@@ -4874,7 +4874,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Utils"
         ],
         "description": ""
       }
@@ -4883,7 +4883,7 @@
       "get": {
         "summary": "Your GET endpoint",
         "tags": [
-          "Meta"
+          "Utils"
         ],
         "responses": {},
         "operationId": "cache-get",
@@ -4899,7 +4899,7 @@
         },
         "description": "Delete All K/V pairs in NocoCache",
         "tags": [
-          "Meta"
+          "Utils"
         ]
       },
       "parameters": []
@@ -4908,7 +4908,7 @@
       "get": {
         "summary": "Your GET endpoint",
         "tags": [
-          "meta"
+          "Api token"
         ],
         "responses": {
           "200": {
@@ -4925,11 +4925,11 @@
             }
           }
         },
-        "operationId": "api-token-list"
+        "operationId": "list"
       },
       "post": {
         "summary": "",
-        "operationId": "api-token-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK"
@@ -4960,7 +4960,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Api token"
         ]
       },
       "parameters": [
@@ -4977,14 +4977,14 @@
     "/projects/{projectId}/apiTokens/{token}": {
       "delete": {
         "summary": "",
-        "operationId": "api-token-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
         "tags": [
-          "meta"
+          "Api token"
         ]
       },
       "parameters": [
@@ -5042,7 +5042,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db table row"
         ],
         "description": "",
         "requestBody": {
@@ -5065,7 +5065,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db table row"
         ],
         "requestBody": {
           "content": {
@@ -5105,7 +5105,7 @@
           }
         },
         "tags": [
-          "Data"
+          "Db table row"
         ]
       }
     },
@@ -5169,7 +5169,7 @@
           }
         ],
         "tags": [
-          "Data"
+          "Db table row"
         ]
       },
       "delete": {
@@ -5196,7 +5196,7 @@
           }
         ],
         "tags": [
-          "Data"
+          "Db table row"
         ]
       }
     }
