@@ -415,7 +415,7 @@
       ],
       "get": {
         "summary": "User Info",
-        "operationId": "project-meta-get",
+        "operationId": "meta-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -529,10 +529,10 @@
         ]
       }
     },
-    "/projects/{projectId}/{baseId}/modelVisibility": {
+    "/projects/{projectId}/modelVisibility": {
       "get": {
         "summary": "",
-        "operationId": "project-model-visibility-list",
+        "operationId": "model-visibility-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -568,19 +568,11 @@
           "name": "projectId",
           "in": "path",
           "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "baseId",
-          "in": "path",
-          "required": true
         }
       ],
       "post": {
         "summary": "",
-        "operationId": "project-model-visibility-set",
+        "operationId": "model-visibility-set",
         "responses": {
           "200": {
             "description": "OK",
@@ -607,7 +599,7 @@
       "parameters": [],
       "get": {
         "summary": "",
-        "operationId": "project-list",
+        "operationId": "list",
         "responses": {
           "201": {
             "$ref": "#/components/responses/ProjectList"
@@ -651,7 +643,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "project-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK",
@@ -772,7 +764,7 @@
           }
         ],
         "tags": [
-          "Meta"
+          "Project"
         ],
         "responses": {
           "200": {
@@ -973,14 +965,6 @@
           "name": "projectId",
           "in": "path",
           "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "baseId",
-          "in": "path",
-          "required": true
         }
       ],
       "post": {
@@ -1013,7 +997,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "table-list",
+        "operationId": "list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/TableList"
@@ -1068,14 +1052,6 @@
             "type": "string"
           },
           "name": "projectId",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "baseId",
           "in": "path",
           "required": true
         }
@@ -1238,7 +1214,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "table-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK",
@@ -1294,7 +1270,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "table-reorder",
+        "operationId": "reorder",
         "responses": {
           "200": {
             "description": "OK"
@@ -1355,7 +1331,7 @@
       },
       "post": {
         "summary": "Column create",
-        "operationId": "column-create",
+        "operationId": "create",
         "responses": {
           "200": {
             "description": "OK"
@@ -1685,7 +1661,7 @@
           }
         },
         "tags": [
-          "DB View column"
+          "DB View"
         ],
         "parameters": [
           {
@@ -1826,7 +1802,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "shared-view-delete",
+        "operationId": "delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -1834,7 +1810,7 @@
         },
         "description": "",
         "tags": [
-          "DB View"
+          "DB View share"
         ]
       }
     },
@@ -4240,7 +4216,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "project-audit-list",
+        "operationId": "audit-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -4320,7 +4296,7 @@
           }
         ],
         "tags": [
-          "Utils"
+          "Project"
         ]
       }
     },
@@ -4557,7 +4533,7 @@
       "parameters": [],
       "get": {
         "summary": "",
-        "operationId": "plugin-list",
+        "operationId": "list",
         "responses": {
           "200": {
             "description": "OK",
@@ -4610,7 +4586,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "plugin-status",
+        "operationId": "status",
         "responses": {
           "200": {
             "description": "OK",
@@ -4709,7 +4685,7 @@
       "parameters": [],
       "post": {
         "summary": "",
-        "operationId": "plugin-test",
+        "operationId": "test",
         "responses": {
           "200": {
             "description": "OK",
@@ -4774,7 +4750,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "plugin-update",
+        "operationId": "update",
         "responses": {
           "200": {
             "description": "OK",
@@ -4802,7 +4778,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "plugin-read",
+        "operationId": "read",
         "responses": {
           "200": {
             "description": "OK",
@@ -4846,7 +4822,7 @@
           }
         },
         "tags": [
-          "Plugin"
+          "Utils"
         ],
         "requestBody": {
           "content": {
