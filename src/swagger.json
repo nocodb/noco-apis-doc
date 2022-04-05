@@ -41,7 +41,7 @@
           }
         },
         "tags": [
-          "AUTH"
+          "Auth"
         ],
         "requestBody": {
           "$ref": "#/components/requestBodies/Signup"
@@ -71,7 +71,7 @@
           }
         },
         "tags": [
-          "AUTH"
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -115,7 +115,7 @@
           }
         },
         "tags": [
-          "AUTH"
+          "Auth"
         ]
       }
     },
@@ -130,7 +130,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -160,7 +160,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -196,7 +196,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ]
       },
       "parameters": [
@@ -221,7 +221,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ]
       },
       "parameters": [
@@ -246,7 +246,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -285,7 +285,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -319,7 +319,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ]
       },
       "parameters": []
@@ -364,7 +364,7 @@
         },
         "description": "",
         "tags": [
-          "AUTH"
+          "Auth"
         ]
       },
       "parameters": [
@@ -398,7 +398,7 @@
           }
         },
         "tags": [
-          "auth"
+          "Auth"
         ]
       }
     },
@@ -464,7 +464,7 @@
           }
         },
         "tags": [
-          "meta"
+          "Project"
         ]
       }
     },
@@ -508,7 +508,7 @@
           }
         },
         "tags": [
-          "auth"
+          "Auth"
         ]
       },
       "delete": {
@@ -525,7 +525,7 @@
           }
         },
         "tags": [
-          "auth"
+          "Auth"
         ]
       }
     },
@@ -733,16 +733,6 @@
           }
         }
       },
-      "put": {
-        "summary": "",
-        "operationId": "project-update",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "description": "USer registration apis"
-      },
       "delete": {
         "summary": "",
         "operationId": "projects-delete",
@@ -926,7 +916,7 @@
           }
         },
         "tags": [
-          "public"
+          "Public"
         ]
       }
     },
@@ -974,27 +964,6 @@
         }
       ]
     },
-    "/projects/{projectId}/reorder": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "projectId",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "post": {
-        "summary": "",
-        "operationId": "project-reorder",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/projects/{projectId}/{baseId}/tables": {
       "parameters": [
         {
@@ -1039,7 +1008,7 @@
           }
         },
         "tags": [
-          "Meta"
+          "Db table"
         ]
       },
       "get": {
@@ -1409,7 +1378,7 @@
                           "LinkToAnotherRecord"
                         ]
                       },
-                      "_cn": {
+                      "title": {
                         "type": "string"
                       },
                       "parentId": {
@@ -1428,7 +1397,8 @@
                       }
                     },
                     "required": [
-                      "_cn",
+                      "uidt",
+                      "title",
                       "parentId",
                       "childId",
                       "type"
@@ -2345,148 +2315,6 @@
         "tags": [
           "Meta"
         ]
-      }
-    },
-    "/tables/{tableId}/webhooks/{webhookId}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "tableId",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "webhookId",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "",
-        "operationId": "webhook-get",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "tags": [
-          "Meta"
-        ]
-      },
-      "put": {
-        "summary": "",
-        "operationId": "webhook-update",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "tags": [
-          "Meta"
-        ]
-      },
-      "delete": {
-        "summary": "",
-        "operationId": "webhook-delete",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "description": "",
-        "tags": [
-          "Meta"
-        ]
-      }
-    },
-    "/tables/{tableId}/webhooks/{webhookId}/reorder": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "tableId",
-          "in": "path",
-          "required": true
-        },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "webhookId",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "post": {
-        "summary": "",
-        "operationId": "webhook-reorder",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "description": ""
-      }
-    },
-    "/tables/{tableId}/webhooks": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "tableId",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "",
-        "operationId": "webhook-list",
-        "tags": [
-          "Meta"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Webhook"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "",
-        "operationId": "webhook-create",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "tags": [
-          "Meta"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Webhook"
-              }
-            }
-          }
-        }
       }
     },
     "/tables/{tableId}/grids": {
@@ -3645,7 +3473,7 @@
           }
         },
         "tags": [
-          "public"
+          "Public"
         ],
         "requestBody": {
           "content": {
@@ -3774,7 +3602,7 @@
           }
         },
         "tags": [
-          ""
+          "Public"
         ],
         "description": "",
         "parameters": [],
@@ -3992,7 +3820,10 @@
             "description": "OK"
           }
         },
-        "description": ""
+        "description": "",
+        "tags": [
+          "Data"
+        ]
       }
     },
     "/data/{tableId}/{rowId}": {
@@ -5336,6 +5167,9 @@
             "in": "query",
             "name": "where"
           }
+        ],
+        "tags": [
+          "Data"
         ]
       },
       "delete": {
@@ -5360,6 +5194,9 @@
             "in": "query",
             "name": "where"
           }
+        ],
+        "tags": [
+          "Data"
         ]
       }
     }
