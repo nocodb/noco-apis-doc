@@ -13,7 +13,7 @@
     "/auth/user/signup": {
       "post": {
         "summary": "Signup",
-        "operationId": "signup",
+        "operationId": "auth-signup",
         "responses": {
           "200": {
             "description": "OK",
@@ -52,7 +52,7 @@
     "/auth/user/signin": {
       "post": {
         "summary": "Signin",
-        "operationId": "signin",
+        "operationId": "auth-signin",
         "responses": {
           "200": {
             "description": "OK",
@@ -101,7 +101,7 @@
       "parameters": [],
       "get": {
         "summary": "User Info",
-        "operationId": "me",
+        "operationId": "auth-me",
         "responses": {
           "200": {
             "description": "OK",
@@ -122,7 +122,7 @@
     "/auth/password/forgot": {
       "post": {
         "summary": "Password Forgot",
-        "operationId": "password-forgot",
+        "operationId": "auth-password-forgot",
         "responses": {
           "200": {
             "description": "OK"
@@ -152,7 +152,7 @@
     "/auth/password/change": {
       "post": {
         "summary": "Password Change",
-        "operationId": "password-change",
+        "operationId": "auth-password-change",
         "responses": {
           "200": {
             "description": "OK"
@@ -188,7 +188,7 @@
     "/auth/token/validate/{token}": {
       "post": {
         "summary": "Password Reset",
-        "operationId": "password-reset-token-validate",
+        "operationId": "auth-password-reset-token-validate",
         "responses": {
           "200": {
             "description": "OK"
@@ -213,7 +213,7 @@
     "/auth/email/validate/{token}": {
       "post": {
         "summary": "Password Reset",
-        "operationId": "email-validate",
+        "operationId": "auth-email-validate",
         "responses": {
           "200": {
             "description": "OK"
@@ -238,7 +238,7 @@
     "/auth/password/reset/{token}": {
       "post": {
         "summary": "Password Reset",
-        "operationId": "password-reset",
+        "operationId": "auth-password-reset",
         "responses": {
           "200": {
             "description": "OK"
@@ -277,7 +277,7 @@
     "/auth/token/verify": {
       "post": {
         "summary": "Password Verify",
-        "operationId": "token-verify",
+        "operationId": "auth-token-verify",
         "responses": {
           "200": {
             "description": "OK"
@@ -311,7 +311,7 @@
     "/auth/token/refresh": {
       "post": {
         "summary": "Password Refresh",
-        "operationId": "token-refresh",
+        "operationId": "auth-token-refresh",
         "responses": {
           "200": {
             "description": "OK"
@@ -327,7 +327,7 @@
     "/projects/{projectId}/users": {
       "get": {
         "summary": "Password Refresh",
-        "operationId": "project-user-list",
+        "operationId": "auth-project-user-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -379,7 +379,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "project-user-add",
+        "operationId": "auth-project-user-add",
         "responses": {
           "200": {
             "description": "OK",
@@ -415,7 +415,7 @@
       ],
       "get": {
         "summary": "User Info",
-        "operationId": "meta-get",
+        "operationId": "project-meta-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -489,7 +489,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "project-user-update",
+        "operationId": "auth-project-user-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -513,7 +513,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "project-user-remove",
+        "operationId": "auth-project-user-remove",
         "responses": {
           "200": {
             "description": "OK",
@@ -532,7 +532,7 @@
     "/projects/{projectId}/modelVisibility": {
       "get": {
         "summary": "",
-        "operationId": "model-visibility-list",
+        "operationId": "project-model-visibility-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -572,7 +572,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "model-visibility-set",
+        "operationId": "project-model-visibility-set",
         "responses": {
           "200": {
             "description": "OK",
@@ -599,7 +599,7 @@
       "parameters": [],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "project-list",
         "responses": {
           "201": {
             "$ref": "#/components/responses/ProjectList"
@@ -643,7 +643,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "project-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -696,7 +696,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "project-read",
         "description": "Read project details",
         "parameters": [
           {
@@ -727,7 +727,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "project-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -751,7 +751,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "shared-base-get",
+        "operationId": "project-shared-base-get",
         "description": "Read project details",
         "parameters": [
           {
@@ -789,7 +789,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "shared-base-disable",
+        "operationId": "project-shared-base-disable",
         "responses": {
           "200": {
             "description": "OK"
@@ -801,7 +801,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "shared-base-create",
+        "operationId": "project-shared-base-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -845,7 +845,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "shared-base-update",
+        "operationId": "project-shared-base-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -887,7 +887,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "shared-base-get",
+        "operationId": "public-shared-base-get",
         "description": "Read project details",
         "parameters": [],
         "responses": {
@@ -915,7 +915,7 @@
     "/projects/{projectId}/views/{viewId}/upload": {
       "post": {
         "summary": "Attachment",
-        "operationId": "upload",
+        "operationId": "db-view-upload",
         "responses": {},
         "tags": [
           "DB View"
@@ -969,7 +969,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-table-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -997,7 +997,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-table-list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/TableList"
@@ -1038,7 +1038,7 @@
             },
             "in": "query",
             "name": "includeM2M"
-          }
+          },
         ],
         "tags": [
           "DB Table"
@@ -1058,7 +1058,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "meta-diff-sync",
+        "operationId": "project-meta-diff-sync",
         "responses": {
           "200": {
             "description": "OK",
@@ -1075,7 +1075,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "meta-diff-get",
+        "operationId": "project-meta-diff-get",
         "parameters": [],
         "tags": [
           "Project"
@@ -1105,7 +1105,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "db-table-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -1214,7 +1214,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-table-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -1245,7 +1245,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-table-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -1270,7 +1270,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "reorder",
+        "operationId": "db-table-reorder",
         "responses": {
           "200": {
             "description": "OK"
@@ -1308,7 +1308,7 @@
       ],
       "get": {
         "summary": "Column List",
-        "operationId": "list",
+        "operationId": "db-table-column-list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/ColumnList"
@@ -1331,7 +1331,7 @@
       },
       "post": {
         "summary": "Column create",
-        "operationId": "create",
+        "operationId": "db-table-column-create",
         "responses": {
           "200": {
             "description": "OK"
@@ -1411,7 +1411,7 @@
       ],
       "get": {
         "summary": "Column Read",
-        "operationId": "read",
+        "operationId": "db-table-column-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -1431,7 +1431,7 @@
       },
       "put": {
         "summary": "Column Update",
-        "operationId": "update",
+        "operationId": "db-table-column-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -1459,7 +1459,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-table-column-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -1491,7 +1491,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "primary-column-set",
+        "operationId": "db-table-column-primary-column-set",
         "responses": {
           "200": {
             "description": "OK"
@@ -1515,7 +1515,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-view-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -1555,7 +1555,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-view-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -1579,7 +1579,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-view-column-list",
         "responses": {
           "200": {}
         },
@@ -1589,7 +1589,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-view-column-create",
         "responses": {
           "200": {
             "description": "OK"
@@ -1620,7 +1620,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "show-all-column",
+        "operationId": "db-view-show-all-column",
         "responses": {
           "200": {
             "description": "OK"
@@ -1654,7 +1654,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "hide-all-column",
+        "operationId": "db-view-hide-all-column",
         "responses": {
           "200": {
             "description": "OK"
@@ -1696,7 +1696,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "db-view-column-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -1713,7 +1713,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-view-column-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -1744,7 +1744,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-view-share-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -1768,7 +1768,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-view-share-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -1802,7 +1802,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-view-share-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -1827,7 +1827,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-view-share-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -1860,7 +1860,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-table-sort-list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/SortList"
@@ -1889,7 +1889,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-table-sort-create",
         "responses": {
           "200": {
             "description": "OK"
@@ -1930,7 +1930,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "get",
+        "operationId": "db-table-sort-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -1949,7 +1949,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-table-sort-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -1970,7 +1970,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-table-sort-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -1994,7 +1994,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "db-table-filter-read",
         "responses": {
           "200": {
             "$ref": "#/components/responses/FilterList"
@@ -2006,7 +2006,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-table-filter-create",
         "responses": {
           "200": {
             "description": "OK"
@@ -2047,7 +2047,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "get",
+        "operationId": "db-table-filter-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -2066,7 +2066,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-table-filter-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -2087,7 +2087,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-table-filter-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -2119,7 +2119,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "children-read",
+        "operationId": "db-table-filter-children-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -2150,7 +2150,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "db-table-webhook-filter-read",
         "responses": {
           "200": {
             "$ref": "#/components/responses/FilterList"
@@ -2162,7 +2162,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-table-webhook-filter-create",
         "responses": {
           "200": {
             "description": "OK"
@@ -2203,7 +2203,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "get",
+        "operationId": "db-table-webhook-filter-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -2222,7 +2222,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-table-webhook-filter-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -2243,7 +2243,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-table-webhook-filter-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -2275,7 +2275,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "children-read",
+        "operationId": "db-table-webhook-filter-children-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -2306,7 +2306,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "grid-create",
+        "operationId": "db-view-grid-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -2354,7 +2354,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "grid-update",
+        "operationId": "db-view-grid-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -2366,7 +2366,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "grid-delete",
+        "operationId": "db-view-grid-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -2378,7 +2378,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "grid-read",
+        "operationId": "db-view-grid-read",
         "responses": {
           "200": {
             "description": "OK"
@@ -2402,7 +2402,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "form-create",
+        "operationId": "db-view-form-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -2443,7 +2443,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "form-update",
+        "operationId": "db-view-form-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -2464,7 +2464,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "form-read",
+        "operationId": "db-view-form-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -2495,7 +2495,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "form-column-update",
+        "operationId": "db-view-form-column-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -2535,7 +2535,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "grid-columns-list",
+        "operationId": "db-view-grid-columns-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -2569,7 +2569,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "grid-column-update",
+        "operationId": "db-view-grid-column-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -2616,7 +2616,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "gallery-create",
+        "operationId": "db-view-gallery-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -2657,7 +2657,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "gallery-update",
+        "operationId": "db-view-gallery-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -2678,7 +2678,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "gallery-delete",
+        "operationId": "db-view-gallery-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -2690,7 +2690,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "gallery-read",
+        "operationId": "db-view-gallery-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -2721,7 +2721,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "kanban-create",
+        "operationId": "db-view-kanban-create",
         "responses": {
           "200": {
             "description": "OK"
@@ -2753,7 +2753,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "kanban-update",
+        "operationId": "db-view-kanban-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -2765,7 +2765,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "kanban-delete",
+        "operationId": "db-view-kanban-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -2777,7 +2777,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "kanban-read",
+        "operationId": "db-view-kanban-read",
         "responses": {
           "200": {
             "description": "OK"
@@ -2801,7 +2801,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-view-list",
         "responses": {
           "200": {
             "$ref": "#/components/responses/ViewList"
@@ -2826,7 +2826,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "data-list",
         "description": "",
         "tags": [
           "Data"
@@ -2844,7 +2844,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "data-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -2896,7 +2896,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-table-row-list",
         "description": "",
         "tags": [
           "DB Table row"
@@ -2937,7 +2937,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-table-row-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -2997,7 +2997,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-view-row-list",
         "description": "",
         "tags": [
           "DB View row"
@@ -3044,7 +3044,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-view-row-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -3092,7 +3092,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "csv-export",
+        "operationId": "data-csv-export",
         "description": "CSV or Excel export",
         "tags": [
           "Data"
@@ -3131,7 +3131,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "data-list",
+        "operationId": "public-data-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -3231,7 +3231,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "data-nested-list",
+        "operationId": "public-data-nested-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -3311,7 +3311,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "data-nested-excluded-list",
+        "operationId": "public-data-nested-excluded-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -3363,7 +3363,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "data-create",
+        "operationId": "public-data-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -3428,7 +3428,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "csv-export",
+        "operationId": "public-csv-export",
         "description": "",
         "wrapped": true,
         "responses": {
@@ -3500,7 +3500,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "data-relation-list",
+        "operationId": "public-data-relation-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -3560,7 +3560,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "shared-view-meta-get",
+        "operationId": "public-shared-view-meta-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -3635,7 +3635,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "nested-list",
+        "operationId": "data-nested-list",
         "responses": {
           "201": {
             "description": "Created",
@@ -3696,7 +3696,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "nested-excluded-list",
+        "operationId": "data-nested-excluded-list",
         "responses": {
           "201": {
             "description": "Created",
@@ -3765,7 +3765,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "nested-add",
+        "operationId": "data-nested-add",
         "responses": {
           "201": {
             "description": "Created",
@@ -3790,7 +3790,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "nested-delete",
+        "operationId": "data-nested-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -3823,7 +3823,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "data-read",
         "responses": {
           "201": {
             "description": "Created",
@@ -3841,7 +3841,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "data-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -3865,7 +3865,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "data-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -3922,7 +3922,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "db-view-row-read",
         "responses": {
           "201": {
             "description": "Created",
@@ -3940,7 +3940,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-view-row-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -3964,7 +3964,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-view-row-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -4013,7 +4013,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "db-table-row-read",
         "responses": {
           "201": {
             "description": "Created",
@@ -4031,7 +4031,7 @@
       },
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-table-row-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -4055,7 +4055,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "model-delete",
+        "operationId": "db-table-row-model-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -4071,7 +4071,7 @@
       "parameters": [],
       "get": {
         "summary": "",
-        "operationId": "comment-list",
+        "operationId": "utils-comment-list",
         "responses": {
           "201": {
             "description": "Created",
@@ -4121,7 +4121,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "comment-row",
+        "operationId": "utils-comment-row",
         "responses": {
           "200": {
             "description": "OK"
@@ -4161,7 +4161,7 @@
       "parameters": [],
       "get": {
         "summary": "",
-        "operationId": "comment-count",
+        "operationId": "utils-comment-count",
         "responses": {
           "201": {
             "description": "Created",
@@ -4216,7 +4216,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "audit-list",
+        "operationId": "project-audit-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -4304,7 +4304,7 @@
       "parameters": [],
       "post": {
         "summary": "",
-        "operationId": "audit-row-update",
+        "operationId": "utils-audit-row-update",
         "responses": {
           "200": {
             "description": "OK"
@@ -4354,7 +4354,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "db-table-webhook-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -4399,7 +4399,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "db-table-webhook-create",
         "responses": {
           "200": {
             "description": "OK",
@@ -4440,7 +4440,7 @@
       ],
       "post": {
         "summary": "",
-        "operationId": "test",
+        "operationId": "db-table-webhook-test",
         "responses": {
           "200": {
             "description": "OK",
@@ -4490,7 +4490,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "db-table-webhook-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -4518,7 +4518,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "db-table-webhook-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -4533,7 +4533,7 @@
       "parameters": [],
       "get": {
         "summary": "",
-        "operationId": "list",
+        "operationId": "plugin-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -4586,7 +4586,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "status",
+        "operationId": "plugin-status",
         "responses": {
           "200": {
             "description": "OK",
@@ -4632,7 +4632,7 @@
       ],
       "get": {
         "summary": "",
-        "operationId": "sample-payload-get",
+        "operationId": "db-table-webhook-sample-payload-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -4685,7 +4685,7 @@
       "parameters": [],
       "post": {
         "summary": "",
-        "operationId": "test",
+        "operationId": "plugin-test",
         "responses": {
           "200": {
             "description": "OK",
@@ -4750,7 +4750,7 @@
       ],
       "put": {
         "summary": "",
-        "operationId": "update",
+        "operationId": "plugin-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -4778,7 +4778,7 @@
       },
       "get": {
         "summary": "",
-        "operationId": "read",
+        "operationId": "plugin-read",
         "responses": {
           "200": {
             "description": "OK",
@@ -4800,7 +4800,7 @@
       "parameters": [],
       "post": {
         "summary": "",
-        "operationId": "test-connection",
+        "operationId": "utils-test-connection",
         "responses": {
           "200": {
             "description": "OK",
@@ -4838,7 +4838,7 @@
       "parameters": [],
       "get": {
         "summary": "",
-        "operationId": "app-info",
+        "operationId": "utils-app-info",
         "responses": {
           "200": {
             "description": "OK",
@@ -4862,12 +4862,12 @@
           "Utils"
         ],
         "responses": {},
-        "operationId": "cache-get",
+        "operationId": "utils-cache-get",
         "description": "Get All K/V pairs in NocoCache"
       },
       "delete": {
         "summary": "",
-        "operationId": "cache-delete",
+        "operationId": "utils-cache-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -4901,11 +4901,11 @@
             }
           }
         },
-        "operationId": "list"
+        "operationId": "api-token-list"
       },
       "post": {
         "summary": "",
-        "operationId": "create",
+        "operationId": "api-token-create",
         "responses": {
           "200": {
             "description": "OK"
@@ -4953,7 +4953,7 @@
     "/projects/{projectId}/apiTokens/{token}": {
       "delete": {
         "summary": "",
-        "operationId": "delete",
+        "operationId": "api-token-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -5011,7 +5011,7 @@
       ],
       "delete": {
         "summary": "",
-        "operationId": "bulk-delete",
+        "operationId": "db-table-row-bulk-delete",
         "responses": {
           "200": {
             "description": "OK"
@@ -5034,7 +5034,7 @@
       },
       "post": {
         "summary": "",
-        "operationId": "bulk-insert",
+        "operationId": "db-table-row-bulk-insert",
         "responses": {
           "200": {
             "description": "OK"
@@ -5056,7 +5056,7 @@
       },
       "patch": {
         "summary": "",
-        "operationId": "bulk-update",
+        "operationId": "db-table-row-bulk-update",
         "responses": {
           "200": {
             "description": "OK",
@@ -5114,7 +5114,7 @@
       ],
       "patch": {
         "summary": "",
-        "operationId": "bulk-update-all",
+        "operationId": "db-table-row-bulk-update-all",
         "responses": {
           "200": {
             "description": "OK",
@@ -5150,7 +5150,7 @@
       },
       "delete": {
         "summary": "",
-        "operationId": "bulk-delete-all",
+        "operationId": "db-table-row-bulk-delete-all",
         "responses": {
           "200": {
             "description": "OK",
@@ -7365,7 +7365,7 @@
               },
               "properties": {
                 "email": {
-                  "type": "boolean"
+                  "type": "string"
                 },
                 "password": {
                   "type": "string"
