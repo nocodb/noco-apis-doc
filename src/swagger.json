@@ -46,7 +46,7 @@
         "requestBody": {
           "$ref": "#/components/requestBodies/Signup"
         },
-        "description": "App user registration"
+        "description": "Create a new user with provided email and password and first user is marked as super admin. "
       }
     },
     "/auth/user/signin": {
@@ -93,7 +93,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Authenticate existing user with their email and password. Successful login will return a JWT access-token. "
       },
       "parameters": []
     },
@@ -116,7 +117,8 @@
         },
         "tags": [
           "Auth"
-        ]
+        ],
+        "description": "Returns authenticated user info"
       }
     },
     "/auth/password/forgot": {
@@ -128,7 +130,7 @@
             "description": "OK"
           }
         },
-        "description": "",
+        "description": "Emails user with a reset url.",
         "tags": [
           "Auth"
         ],
@@ -158,7 +160,7 @@
             "description": "OK"
           }
         },
-        "description": "",
+        "description": "Change password of authenticated user with a new one.",
         "tags": [
           "Auth"
         ],
@@ -187,14 +189,14 @@
     },
     "/auth/token/validate/{token}": {
       "post": {
-        "summary": "Password Reset",
+        "summary": "Reset Token Verify",
         "operationId": "auth-password-reset-token-validate",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
-        "description": "",
+        "description": "Validtae password reset url token.",
         "tags": [
           "Auth"
         ]
@@ -212,14 +214,14 @@
     },
     "/auth/email/validate/{token}": {
       "post": {
-        "summary": "Password Reset",
+        "summary": "Verify Email",
         "operationId": "auth-email-validate",
         "responses": {
           "200": {
             "description": "OK"
           }
         },
-        "description": "",
+        "description": "Api for verifying email where token need to be passed which is shared to user email.",
         "tags": [
           "Auth"
         ]
@@ -244,7 +246,7 @@
             "description": "OK"
           }
         },
-        "description": "",
+        "description": "Update user password to new by using reset token.",
         "tags": [
           "Auth"
         ],
@@ -310,7 +312,7 @@
     },
     "/auth/token/refresh": {
       "post": {
-        "summary": "Password Refresh",
+        "summary": "Refresh Token",
         "operationId": "auth-token-refresh",
         "responses": {
           "200": {
@@ -326,7 +328,7 @@
     },
     "/projects/{projectId}/users": {
       "get": {
-        "summary": "Password Refresh",
+        "summary": "Project Users",
         "operationId": "auth-project-user-list",
         "responses": {
           "200": {
@@ -378,7 +380,7 @@
         }
       ],
       "post": {
-        "summary": "",
+        "summary": "Project User Add",
         "operationId": "auth-project-user-add",
         "responses": {
           "200": {
@@ -414,7 +416,7 @@
         }
       ],
       "get": {
-        "summary": "User Info",
+        "summary": "Project Info",
         "operationId": "project-meta-get",
         "responses": {
           "200": {
@@ -488,7 +490,7 @@
         }
       ],
       "put": {
-        "summary": "",
+        "summary": "Project User Update",
         "operationId": "auth-project-user-update",
         "responses": {
           "200": {
@@ -512,7 +514,7 @@
         ]
       },
       "delete": {
-        "summary": "",
+        "summary": "Project User Remove",
         "operationId": "auth-project-user-remove",
         "responses": {
           "200": {
@@ -531,7 +533,7 @@
     },
     "/projects/{projectId}/modelVisibility": {
       "get": {
-        "summary": "",
+        "summary": "UI ACL",
         "operationId": "project-model-visibility-list",
         "responses": {
           "200": {
@@ -956,13 +958,21 @@
         }
       ]
     },
-    "/projects/{projectId}/tables": {
+    "/projects/{projectId}/{baseId}/tables": {
       "parameters": [
         {
           "schema": {
             "type": "string"
           },
           "name": "projectId",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "baseId",
           "in": "path",
           "required": true
         }
@@ -1038,7 +1048,7 @@
             },
             "in": "query",
             "name": "includeM2M"
-          },
+          }
         ],
         "tags": [
           "DB Table"
