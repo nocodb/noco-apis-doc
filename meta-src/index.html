@@ -18,29 +18,8 @@
     </style>
 </head>
 <body>
-<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a"/>
-<div id="redoc"></div>
-<script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
-<script>
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var swaggerJson = this.responseText;
-      const swagger = JSON.parse(swaggerJson);
-      swagger.paths = Object.entries(swagger.paths).reduce((pathObj,[path, pathMeta])=>{
-        if(path.indexOf('/data/') === -1){
-          pathObj[path] = pathMeta
-        }
-        return pathObj
-      },{})
-      console.log()
-      Redoc.init(swagger, {
-        scrollYOffset: 50
-      }, document.getElementById('redoc'))
-    }
-  };
-  xhttp.open("GET", "./swagger.json", true);
-  xhttp.send();
-</script>
+<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a" />
+<redoc spec-url='./swagger.json'></redoc>
+<script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"> </script>
 </body>
 </html>

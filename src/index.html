@@ -25,10 +25,10 @@
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      var swaggerJson = this.responseText;
+      const swaggerJson = this.responseText;
       const swagger = JSON.parse(swaggerJson);
       swagger.paths = Object.entries(swagger.paths).reduce((pathObj,[path, pathMeta])=>{
-        if(path.indexOf('/data/') > -1){
+        if(/\/(?:data|auth)\//.test(path)){
           pathObj[path] = pathMeta
         }
         return pathObj
