@@ -28,7 +28,7 @@
       var swaggerJson = this.responseText;
       const swagger = JSON.parse(swaggerJson);
       swagger.paths = Object.entries(swagger.paths).reduce((pathObj,[path, pathMeta])=>{
-        if(path.indexOf('/data/') > -1){
+        if(path.indexOf('/data/') === -1){
           pathObj[path] = pathMeta
         }
         return pathObj
