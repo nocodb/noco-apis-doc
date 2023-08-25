@@ -17,7 +17,17 @@
     </style>
 </head>
 <body>
-<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a"/>
+<div class="nav">
+  <div style="display: flex; align-items: center; padding-top: 2px; margin-right: 15px;">
+    <a href="https://nocodb.com/" target="_blank">
+      <img src="../assets/nocodb-full.png" height="50px" />
+    </a>
+  </div>
+  <div style="padding-top: 2px">
+    <a class="github-button" href="https://github.com/nocodb/nocodb" data-show-count="true" aria-label="Star nocodb/nocodb on GitHub">Star</a>
+  </div>
+</div>
+<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a" style="position: absolute"/>
 <redoc spec-url='./swagger.json'></redoc>
 <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
 <script>
@@ -55,5 +65,22 @@
   document.body.appendChild(styleEl, document.body.firstChild)
   setTimeout(() => linkEl.classList.add('active'), 2000)
 </script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
+<style>
+.nav {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  background: white;
+  border-bottom: 1px solid rgb(204, 204, 204);
+  z-index: 10;
+  padding: 5px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+</style>
 </html>
