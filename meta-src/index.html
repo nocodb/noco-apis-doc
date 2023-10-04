@@ -66,6 +66,47 @@
   setTimeout(() => linkEl.classList.add('active'), 2000)
 </script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script type="module">
+   var push;
+
+   const clickListener = (e) => {
+    if (e.nc_handled) return;
+    e.nc_handled = true;
+    let target = e.target;
+
+    while (target && !target.getAttribute('data-item-id')) {
+      target = target['parentElement'];
+    }
+    if(!target) return;
+    push({
+     event: "meta/apis",
+     $current_url: location.href,
+     path: location.pathname,
+     hash: location.hash,
+     item_clicked: (target.innerText.split('\n')[1] || "").trim(),
+    });
+   };
+
+   const keydownListener = (e) => {
+    const selectedElement = document.querySelector(".search-input");
+    
+    if (selectedElement) {
+     push({
+      event: "meta/apis",
+      $current_url: location.href,
+      path: location.pathname,
+      hash: location.hash,
+      item_clicked: (selectedElement.innerText || "").trim(),
+      search_query: selectedElement.value || "",
+     });
+    }
+   };
+   import { init, push as _push } from "https://www.unpkg.com/nc-analytics@0.0.6/dist/index.js";
+   push = _push;
+   init();
+   document.body.addEventListener("click", clickListener, true);
+   document.body.addEventListener("keydown", keydownListener, true);
+  </script>
 </body>
 <style>
 .nav {

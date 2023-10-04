@@ -103,16 +103,16 @@
     e.nc_handled = true;
     let target = e.target;
 
-    const isTarget = target.classList.contains("-depth2") || target.classList.contains("-depth1");
-    const search = document.getElementsByClassName(".search-input")[0];
-    if(!isTarget) return;
+    while (target && !target.getAttribute('data-item-id')) {
+      target = target['parentElement'];
+    }
+    if(!target) return;
     push({
-     event: "api/docs",
+     event: "data/apis",
      $current_url: location.href,
      path: location.pathname,
      hash: location.hash,
-     item_clicked: (target.innerText || "").trim(),
-     search_query: search.textContent,
+     item_clicked: (target.innerText.split('\n')[1] || "").trim(),
     });
    };
 
@@ -121,12 +121,12 @@
     
     if (selectedElement) {
      push({
-      event: "api/docs/search",
+      event: "data/apis",
       $current_url: location.href,
       path: location.pathname,
       hash: location.hash,
       item_clicked: (selectedElement.innerText || "").trim(),
-      search_query: selectedElement.value,
+      search_query: selectedElement.value || "",
      });
     }
    };
@@ -134,8 +134,6 @@
    push = _push;
    init();
 
-   document.body.removeEventListener("click", clickListener, true);
-   document.body.removeEventListener("keydown", keydownListener, true);
    document.body.addEventListener("click", clickListener, true);
    document.body.addEventListener("keydown", keydownListener, true);
   </script>
