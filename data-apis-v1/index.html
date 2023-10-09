@@ -37,7 +37,7 @@
      const swaggerJson = this.responseText;
      const swagger = JSON.parse(swaggerJson);
      swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
-      if (/\/(?:data|auth|storage)\//.test(path)) {
+      if (/^\/api\/v1\/data|\/(?:auth|storage)\//.test(path)) {
        pathObj[path] = pathMeta;
       }
       return pathObj;
@@ -49,10 +49,11 @@
       },
       {
        name: "Data APIs",
-       tags: ["DB Table Row", "DB View Row", "Storage"],
+       tags: ["DB Data Table Row", "DB View Row", "Storage"],
       },
      ];
-     console.log();
+     swagger.info.title = 'NocoDB'
+
      Redoc.init(swagger, {}, document.getElementById("redoc"));
     }
    };
@@ -84,7 +85,7 @@
          display: block;
          font-weight: bold;
          }
-         
+
          .we-are-hiring.active {
          opacity: 1;
          right:25px;
@@ -118,7 +119,7 @@
 
    const keydownListener = (e) => {
     const selectedElement = document.querySelector(".search-input");
-    
+
     if (selectedElement) {
      push({
       event: "data/apis",
