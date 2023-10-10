@@ -38,11 +38,12 @@
      const swaggerJson = this.responseText;
      const swagger = JSON.parse(swaggerJson);
      swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
-      if (/^\/api\/v1\/data|\/(?:auth|storage)\//.test(path)) {
+      if (/^\/api\/v1\/data|\/auth\/|storage\/upload$/.test(path)) {
        pathObj[path] = pathMeta;
       }
       return pathObj;
      }, {});
+
      swagger["x-tagGroups"] = [
       {
        name: "Auth APIs",
@@ -50,7 +51,7 @@
       },
       {
        name: "Data APIs",
-       tags: ["DB Data Table Row", "DB View Row", "Storage"],
+       tags: ['DB Table Row', "DB View Row", "Storage"],
       },
      ];
      swagger.info.title = 'NocoDB'

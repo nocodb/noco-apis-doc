@@ -3,9 +3,9 @@
 <head>
     <title>NocoDB API Documentation</title>
     <!-- needed for adaptive design -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet"/>
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!--
            Redoc doesn't change outer page styles
@@ -21,14 +21,15 @@
 <div class="nav">
     <div style="display: flex; align-items: center; padding-top: 2px; margin-right: 15px;">
         <a href="https://nocodb.com/" target="_blank">
-            <img src="assets/nocodb-full.png" height="50px" />
+            <img src="assets/nocodb-full.png" height="50px"/>
         </a>
     </div>
     <div style="padding-top: 2px;">
-        <a class="github-button" href="https://github.com/nocodb/nocodb" data-show-count="true" aria-label="Star nocodb/nocodb on GitHub">Star</a>
+        <a class="github-button" href="https://github.com/nocodb/nocodb" data-show-count="true"
+           aria-label="Star nocodb/nocodb on GitHub">Star</a>
     </div>
 </div>
-<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a" style="position: absolute;" />
+<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a" style="position: absolute;"/>
 <div id="redoc"></div>
 <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
 <script>
@@ -40,7 +41,8 @@
       swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
 
         // skip api-token/plugin/org apis
-        if(!Object.values(pathMeta).some((methodMeta) => methodMeta && methodMeta.operationId && /^(org-|plugin-|api-token)/.test(methodMeta.operationId)) && !/^\/api\/v1\/tables|^\/api\/v1\/data/.test(path)) {
+        if (!Object.values(pathMeta).some((methodMeta) => methodMeta && methodMeta.operationId && /^(org-|plugin-|api-token)/.test(methodMeta.operationId))
+          && !/^\/api\/v1\/tables|^\/api\/v1\/data|storage\/upload-by-url/.test(path)) {
           pathObj[path] = pathMeta;
         }
 
@@ -103,7 +105,7 @@
     while (target && !target.getAttribute('data-item-id')) {
       target = target['parentElement'];
     }
-    if(!target) return;
+    if (!target) return;
     push({
       event: "meta/apis-v1",
       $current_url: location.href,
@@ -127,7 +129,8 @@
       });
     }
   };
-  import { init, push as _push } from "https://www.unpkg.com/nc-analytics@0.0.6/dist/index.js";
+  import {init, push as _push} from "https://www.unpkg.com/nc-analytics@0.0.6/dist/index.js";
+
   push = _push;
   init();
 
