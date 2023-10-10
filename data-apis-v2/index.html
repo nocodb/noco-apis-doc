@@ -38,7 +38,7 @@
    const swaggerJson = this.responseText;
    const swagger = JSON.parse(swaggerJson);
    swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
-    if (/^\/api\/v1\/tables|\/(?:auth|storage)\//.test(path)) {
+    if (/^\/api\/v2\/tables|\/(?:auth|storage)\//.test(path)) {
      pathObj[path] = pathMeta;
     }
     return pathObj;
