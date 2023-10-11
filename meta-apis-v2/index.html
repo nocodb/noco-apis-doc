@@ -42,7 +42,7 @@
 
         // skip api-token/plugin/org apis
         if (!Object.values(pathMeta).some((methodMeta) => methodMeta && methodMeta.operationId && /^(org-|plugin-|api-token)/.test(methodMeta.operationId))
-          && !/^\/api\/v1\/tables|^\/api\/v1\/data|storage\/upload-by-url/.test(path)) {
+          && !/^\/api\/v2\/tables|^\/api\/v1\/data|storage\/upload-by-url/.test(path)) {
           pathObj[path] = pathMeta;
         }
 
