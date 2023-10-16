@@ -303,7 +303,19 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "Id": 10
+                      },
+                      {
+                        "Id": 11
+                      }
+                    ]
+                  }
+                }
               }
             }
           },
@@ -332,12 +344,60 @@
               },
               "examples": {
                 "Example 1": {
-                  "value": {
-                    "Id": 1,
-                    "Title": "foo",
-                    "CreatedAt": "2023-03-11T09:10:53.567Z",
-                    "UpdatedAt": "2023-03-11T09:10:53.567Z"
+                  "value": [{
+                    "SingleLineText": "David",
+                    "LongText": "The sunsets in the small coastal town were a breathtaking sight. The sky would transform from a vibrant blue to warm hues of orange and pink as the day came to an end. Locals and tourists alike would gather at the beach, sipping on cool drinks and watching in awe as the sun dipped below the horizon.",
+                    "CreatedAt": "2023-10-16 08:27:59+00:00",
+                    "UpdatedAt": "2023-10-16 08:56:32+00:00",
+                    "Decimal": 23.658,
+                    "Checkbox": true,
+                    "Attachment": [
+                      {
+                        "url": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2023/10/16/62e9a6d971350bff43a117a5fe1722093f1afa4f/3niqHLngUKiU2Hupe8.jpeg",
+                        "title": "2 be loved.jpeg",
+                        "mimetype": "image/jpeg",
+                        "size": 146143,
+                        "signedUrl": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2023/10/16/62e9a6d971350bff43a117a5fe1722093f1afa4f/3niqHLngUKiU2Hupe8.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20231016%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T091717Z&X-Amz-Expires=7363&X-Amz-Signature=427b79224a02be33894a7e7320fd1e1a19a6f2693e7a89861e07c6f76f1fa941&X-Amz-SignedHeaders=host&x-id=GetObject"
+                      }
+                    ],
+                    "MultiSelect": "Jan,Feb",
+                    "SingleSelect": "Jan",
+                    "Date": "2023-10-16",
+                    "Year": 2023,
+                    "Time": "06:02:00",
+                    "PhoneNumber": "123456789",
+                    "Email": "a@b.com",
+                    "URL": "www.google.com",
+                    "Currency": 23,
+                    "Percent": 55,
+                    "Duration": 74040,
+                    "Rating": 1,
+                    "JSON": {
+                      "name": "John Doe",
+                      "age": 30,
+                      "email": "johndoe@example.com",
+                      "isSubscribed": true,
+                      "address": {
+                        "street": "123 Main Street",
+                        "city": "Anytown",
+                        "zipCode": "12345"
+                      },
+                      "hobbies": [
+                        "Reading",
+                        "Hiking",
+                        "Cooking"
+                      ],
+                      "scores": {
+                        "math": 95,
+                        "science": 88,
+                        "history": 75
+                      }
+                    },
+                    "DateTime": "2023-10-16 08:56:32+00:00",
+                    "Geometry": "23.23, 36.54",
+                    "Number": 5248
                   }
+                  ]
                 }
               }
             }
@@ -350,7 +410,7 @@
           }
         ]
       },
-      "put": {
+      "patch": {
         "summary": "Update Table Records",
         "operationId": "db-data-table-row-update",
         "responses": {
@@ -358,7 +418,19 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "Id": 6
+                      },
+                      {
+                        "Id": 7
+                      }
+                    ]
+                  }
+                }
               }
             }
           },
@@ -387,12 +459,19 @@
               },
               "examples": {
                 "Example 1": {
-                  "value": {
-                    "Id": 1,
-                    "Title": "foo",
-                    "CreatedAt": "2023-03-11T09:10:53.567Z",
-                    "UpdatedAt": "2023-03-11T09:10:53.567Z"
-                  }
+                  "value": [{
+                    "Id": 6,
+                    "SingleLineText": "Updated text-1",
+                    "DateTime": "2023-10-19 08:56:32+00:00",
+                    "Geometry": "23.232, 36.542",
+                    "Number": 52482
+                  },{
+                    "Id": 7,
+                    "SingleLineText": "Updated text-2",
+                    "DateTime": "2023-10-19 08:56:32+00:00",
+                    "Geometry": "23.232, 36.542",
+                    "Number": 52482
+                  }]
                 }
               }
             }
@@ -413,7 +492,19 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "Id": 1
+                      },
+                      {
+                        "Id": 2
+                      }
+                    ]
+                  }
+                }
               }
             }
           },
@@ -445,6 +536,9 @@
                   "value": [
                     {
                       "Id": 1
+                    },
+                    {
+                      "Id": 2
                     }
                   ]
                 }
@@ -513,20 +607,68 @@
                   "Example 1": {
                     "value": {
                       "Id": 1,
-                      "Title": "baz",
-                      "SingleSelect": null,
-                      "Sheet-1 List": [
+                      "SingleLineText": "David",
+                      "CreatedAt": "2023-10-16 08:27:59+00:00",
+                      "UpdatedAt": "2023-10-16 10:05:41+00:00",
+                      "Year": 2023,
+                      "URL": "www.google.com",
+                      "SingleSelect": "Jan",
+                      "Email": "a@b.com",
+                      "Duration": 74040,
+                      "Decimal": 23.658,
+                      "Currency": 23,
+                      "Barcode": "David",
+                      "JSON": {
+                        "name": "John Doe",
+                        "age": 30,
+                        "email": "johndoe@example.com",
+                        "isSubscribed": true,
+                        "address": {
+                          "street": "123 Main Street",
+                          "city": "Anytown",
+                          "zipCode": "12345"
+                        },
+                        "hobbies": [
+                          "Reading",
+                          "Hiking",
+                          "Cooking"
+                        ],
+                        "scores": {
+                          "math": 95,
+                          "science": 88,
+                          "history": 75
+                        }
+                      },
+                      "QRCode": "David",
+                      "Rollup": 3,
+                      "Date": "2023-10-16",
+                      "Time": "06:02:00",
+                      "Rating": 1,
+                      "Percent": 55,
+                      "Formula": 10,
+                      "Checkbox": true,
+                      "Attachment": [
                         {
-                          "Id": 1,
-                          "Title": "baz"
+                          "url": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2023/10/16/62e9a6d971350bff43a117a5fe1722093f1afa4f/3niqHLngUKiU2Hupe8.jpeg",
+                          "title": "2 be loved.jpeg",
+                          "mimetype": "image/jpeg",
+                          "size": 146143,
+                          "signedUrl": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2023/10/16/62e9a6d971350bff43a117a5fe1722093f1afa4f/3niqHLngUKiU2Hupe8.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20231016%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T112047Z&X-Amz-Expires=7753&X-Amz-Signature=a64b90b5ac8d5f7be7ded6006edb08f1b0f0c484d56311632ff1d15b812b6a6d&X-Amz-SignedHeaders=host&x-id=GetObject"
                         }
                       ],
-                      "LTAR": [
-                        {
-                          "Id": 1,
-                          "Title": "baz"
-                        }
-                      ]
+                      "MultiSelect": "Jan,Feb",
+                      "DateTime": "2023-10-19 08:56:32+00:00",
+                      "LongText": "The sunsets in the small coastal town were a breathtaking sight. The sky would transform from a vibrant blue to warm hues of orange and pink as the day came to an end. Locals and tourists alike would gather at the beach, sipping on cool drinks and watching in awe as the sun dipped below the horizon.",
+                      "Geometry": "23.232, 36.542",
+                      "PhoneNumber": "123456789",
+                      "Number": 52482,
+                      "Links:has-many": 2,
+                      "Links:many-many": 3,
+                      "Links:belongs-to": {
+                        "Id": 1,
+                        "Title": "a"
+                      },
+                      "Lookup": "a"
                     }
                   }
                 }
@@ -599,56 +741,7 @@
                 "examples": {
                   "Example 1": {
                     "value": {
-                      "list": [
-                        {
-                          "Id": 1,
-                          "Title": "baz",
-                          "SingleSelect": null,
-                          "Sheet-1 List": [
-                            {
-                              "Id": 1,
-                              "Title": "baz"
-                            }
-                          ],
-                          "LTAR": [
-                            {
-                              "Id": 1,
-                              "Title": "baz"
-                            }
-                          ]
-                        },
-                        {
-                          "Id": 2,
-                          "Title": "foo",
-                          "SingleSelect": "a",
-                          "Sheet-1 List": [
-                            {
-                              "Id": 2,
-                              "Title": "foo"
-                            }
-                          ],
-                          "LTAR": [
-                            {
-                              "Id": 2,
-                              "Title": "foo"
-                            }
-                          ]
-                        },
-                        {
-                          "Id": 3,
-                          "Title": "bar",
-                          "SingleSelect": "b",
-                          "Sheet-1 List": [],
-                          "LTAR": []
-                        }
-                      ],
-                      "pageInfo": {
-                        "totalRows": 3,
-                        "page": 1,
-                        "pageSize": 25,
-                        "isFirstPage": true,
-                        "isLastPage": true
-                      }
+                      "count": 3
                     }
                   }
                 }
@@ -777,48 +870,23 @@
                       "list": [
                         {
                           "Id": 1,
-                          "Title": "baz",
-                          "SingleSelect": null,
-                          "Sheet-1 List": [
-                            {
-                              "Id": 1,
-                              "Title": "baz"
-                            }
-                          ],
-                          "LTAR": [
-                            {
-                              "Id": 1,
-                              "Title": "baz"
-                            }
-                          ]
+                          "SingleLineText": "David"
                         },
                         {
                           "Id": 2,
-                          "Title": "foo",
-                          "SingleSelect": "a",
-                          "Sheet-1 List": [
-                            {
-                              "Id": 2,
-                              "Title": "foo"
-                            }
-                          ],
-                          "LTAR": [
-                            {
-                              "Id": 2,
-                              "Title": "foo"
-                            }
-                          ]
+                          "SingleLineText": "Jane"
                         },
                         {
                           "Id": 3,
-                          "Title": "bar",
-                          "SingleSelect": "b",
-                          "Sheet-1 List": [],
-                          "LTAR": []
+                          "SingleLineText": "Dave"
+                        },
+                        {
+                          "Id": 4,
+                          "SingleLineText": "Martin"
                         }
                       ],
                       "pageInfo": {
-                        "totalRows": 3,
+                        "totalRows": 4,
                         "page": 1,
                         "pageSize": 25,
                         "isFirstPage": true,
@@ -843,7 +911,12 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": true
+                  }
+                }
               }
             }
           },
@@ -874,7 +947,10 @@
                 "Example 1": {
                   "value": [
                     {
-                      "Id": 1
+                      "Id": 4
+                    },
+                    {
+                      "Id": 5
                     }
                   ]
                 }
@@ -906,7 +982,12 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": true
+                  }
+                }
               }
             }
           },
@@ -923,9 +1004,6 @@
               "schema": {
                 "oneOf": [
                   {
-                    "type": "object"
-                  },
-                  {
                     "type": "array",
                     "items": {
                       "type": "object"
@@ -938,6 +1016,9 @@
                   "value": [
                     {
                       "Id": 1
+                    },
+                    {
+                      "Id": 2
                     }
                   ]
                 }
