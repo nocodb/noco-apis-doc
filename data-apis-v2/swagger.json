@@ -215,52 +215,74 @@
                       "list": [
                         {
                           "Id": 1,
-                          "Title": "baz",
-                          "SingleSelect": null,
-                          "Sheet-1 List": [
+                          "SingleLineText": "David",
+                          "Year": 2023,
+                          "URL": "www.google.com",
+                          "SingleSelect": "Jan",
+                          "Email": "a@b.com",
+                          "Duration": 74040,
+                          "Decimal": 23.658,
+                          "Currency": 23,
+                          "JSON": {
+                            "name": "John Doe",
+                            "age": 30,
+                            "email": "johndoe@example.com",
+                            "isSubscribed": true,
+                            "address": {
+                              "street": "123 Main Street",
+                              "city": "Anytown",
+                              "zipCode": "12345"
+                            },
+                            "hobbies": [
+                              "Reading",
+                              "Hiking",
+                              "Cooking"
+                            ],
+                            "scores": {
+                              "math": 95,
+                              "science": 88,
+                              "history": 75
+                            }
+                          },
+                          "Date": "2023-10-16",
+                          "Time": "06:02:00",
+                          "Rating": 1,
+                          "Percent": 55,
+                          "Checkbox": true,
+                          "Attachment": [
                             {
-                              "Id": 1,
-                              "Title": "baz"
+                              "url": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2023/10/16/62e9a6d971350bff43a117a5fe1722093f1afa4f/3niqHLngUKiU2Hupe8.jpeg",
+                              "title": "2 be loved.jpeg",
+                              "mimetype": "image/jpeg",
+                              "size": 146143,
+                              "signedUrl": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2023/10/16/62e9a6d971350bff43a117a5fe1722093f1afa4f/3niqHLngUKiU2Hupe8.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20231016%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T085245Z&X-Amz-Expires=7635&X-Amz-Signature=89aaa51c886bc88eb29a71bc430f32dd4d756e5a08095a3216dea9b752ee1952&X-Amz-SignedHeaders=host&x-id=GetObject"
                             }
                           ],
-                          "LTAR": [
-                            {
-                              "Id": 1,
-                              "Title": "baz"
-                            }
-                          ]
-                        },
-                        {
-                          "Id": 2,
-                          "Title": "foo",
-                          "SingleSelect": "a",
-                          "Sheet-1 List": [
-                            {
-                              "Id": 2,
-                              "Title": "foo"
-                            }
-                          ],
-                          "LTAR": [
-                            {
-                              "Id": 2,
-                              "Title": "foo"
-                            }
-                          ]
-                        },
-                        {
-                          "Id": 3,
-                          "Title": "bar",
-                          "SingleSelect": "b",
-                          "Sheet-1 List": [],
-                          "LTAR": []
+                          "MultiSelect": "Jan,Feb",
+                          "DateTime": "2023-10-16 08:56:32+00:00",
+                          "LongText": "The sunsets in the small coastal town were a breathtaking sight. The sky would transform from a vibrant blue to warm hues of orange and pink as the day came to an end. Locals and tourists alike would gather at the beach, sipping on cool drinks and watching in awe as the sun dipped below the horizon.",
+                          "Geometry": "23.23, 36.54",
+                          "PhoneNumber": "123456789",
+                          "Number": 5248,
+                          "Barcode": "David",
+                          "QRCode": "David",
+                          "Formula": "10",
+                          "Lookup": "a",
+                          "Links:belongs-to": {
+                            "Id": 1,
+                            "Title": "a"
+                          },
+                          "Links:has-many": 2,
+                          "Rollup": 3,
+                          "Links:many-many": 3
                         }
                       ],
                       "pageInfo": {
-                        "totalRows": 3,
+                        "totalRows": 5,
                         "page": 1,
-                        "pageSize": 25,
+                        "pageSize": 1,
                         "isFirstPage": true,
-                        "isLastPage": true
+                        "isLastPage": false
                       }
                     }
                   }
