@@ -38,6 +38,11 @@
     if (this.readyState == 4 && this.status == 200) {
       const swaggerJson = this.responseText;
       const swagger = JSON.parse(swaggerJson);
+
+      swagger['x-tagGroups'] = (swagger['x-tagGroups'] || []).filter(group => {
+        return !/Organisation|Public/.test(group.name)
+      })
+
       swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
 
         // skip api-token/plugin/org/public apis
@@ -72,7 +77,7 @@
     }
     if (!target) return;
     push({
-      event: "meta/apis-v1",
+      event: "meta/apis-v2",
       $current_url: location.href,
       path: location.pathname,
       hash: location.hash,
@@ -85,7 +90,7 @@
 
     if (selectedElement) {
       push({
-        event: "meta/apis-v1",
+        event: "meta/apis-v2",
         $current_url: location.href,
         path: location.pathname,
         hash: location.hash,
