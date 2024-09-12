@@ -57,7 +57,7 @@
       swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
 
         // skip api-token/plugin/org/public apis
-        if (!Object.values(pathMeta).some((methodMeta) => methodMeta && methodMeta.operationId && /^(org-|plugin-|api-token)/.test(methodMeta.operationId))
+        if (!Object.values(pathMeta).some((methodMeta) => methodMeta && methodMeta.operationId && /^(org-|plugin-)/.test(methodMeta.operationId))
           && !/^\/api\/v2\/tables|\/api\/v2\/public|^\/api\/v1\/data|storage\/upload-by-url/.test(path)) {
           pathObj[path] = pathMeta;
         }
