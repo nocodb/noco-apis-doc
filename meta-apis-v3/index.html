@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NocoDB API Documentation</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet"/>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <!--
+           Redoc doesn't change outer page styles
+           -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/timezone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/utc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/advancedFormat.js"></script>
+    <script>
+        dayjs.extend(window.dayjs_plugin_timezone);
+        dayjs.extend(window.dayjs_plugin_advancedFormat);
+        dayjs.extend(window.dayjs_plugin_utc);
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="nav">
+    <div style="display: flex; align-items: center; padding-top: 2px; margin-right: 15px;">
+        <a href="https://nocodb.com/" target="_blank">
+            <img src="assets/nocodb-full.png" height="50px"/>
+        </a>
+    </div>
+    <div style="padding-top: 2px;">
+        <a class="github-button" href="https://github.com/nocodb/nocodb" data-show-count="true"
+           aria-label="Star nocodb/nocodb on GitHub">Star</a>
+    </div>
+</div>
+<img src="https://static.scarf.sh/a.png?x-pxid=c12a77cc-855e-4602-8a0f-614b2d0da56a" style="position: absolute;"/>
+<div id="redoc"></div>
+<script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
+<script>
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const swaggerJson = this.responseText;
+      const swagger = JSON.parse(swaggerJson);
+      // swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
+      //
+      //   // skip api-token/plugin/org/public apis
+      //   if (!Object.values(pathMeta).some((methodMeta) => methodMeta && methodMeta.operationId && /^(org-|plugin-)/.test(methodMeta.operationId))
+      //     && !/^\/api\/v2\/tables|\/api\/v2\/public|^\/api\/v1\/data|storage\/upload-by-url/.test(path)) {
+      //     pathObj[path] = pathMeta;
+      //   }
+      //
+      //   return pathObj;
+      // }, {});
+
+      swagger.info.title = 'NocoDB'
+      swagger.info.version = null
+
+      Redoc.init(swagger, {}, document.getElementById("redoc"));
+    }
+  };
+  xhttp.open("GET", "./swagger-v3.json", true);
+  xhttp.send();
+</script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script type="module">
+    function isValid(date) {
+        const now = new Date();
+        if (new Date(date) > now) {
+            const lastDismissedDate = localStorage.getItem(
+                "lastMaintenanceDismissed"
+            );
+            const todayString = now.toISOString().split("T")[0];
+
+            if (lastDismissedDate !== todayString) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function renderEjsTemplate(template, data) {
+        return template.replace(
+            /<%= (\w+) %>/g,
+            (match, key) => data[key] || ""
+        );
+    }
+
+    const timeZoneAbbreviated = () => {
+        const { 1: tz } = new Date().toString().match(/\((.+)\)/);
+
+        if (tz.includes(" ")) {
+            return tz
+                .split(" ")
+                .map(([first]) => first)
+                .join("");
+        } else {
+            return tz;
+        }
+    };
+
+    let config = await fetch(
+        "https://nocodb.com/api/v1/config?get=maintenance"
+    )
+        .then(async (res) => (await res.json()).value)
+        .catch((e) => {
+            console.error("Error fetching maintenance config", e);
+            return null;
+        });
+
+    if (typeof config === "string") {
+        config = JSON.parse(config);
+    }
+
+    if (config && isValid(config.date)) {
+        const compiledText = renderEjsTemplate(config.description, {
+            date: `${dayjs(config.date).format(
+                "YYYY-MM-DD HH:mm"
+            )} ${timeZoneAbbreviated()}`,
+            ptTime: dayjs(config.date)
+                .tz("America/Los_Angeles")
+                .format("HH:mm z"),
+        });
+
+        const innerHtml = `
+     <div style="font-family: Manrope;">
+     <div style="font-weight: bold; color: #1f293a; font-size: 18px">${config.title}</div>
+     <p style="color: #374151"">${compiledText}</p>
+        <a target="_blank" href="${config.url}" style="color: white; padding-inline: 8px; padding-block: 4px; background: #3366ff; border-radius: 0.5rem; text-decoration: none;">
+        Learn More
+        </a>
+     </div>
+
+    `;
+
+        const divElem = document.createElement("div");
+        divElem.classList.add("maintenance-banner");
+        divElem.style.position = "fixed";
+        divElem.style.bottom = "20px";
+        divElem.style.right = "-350px";
+        divElem.style.borderRadius = "0.75rem";
+        divElem.style.width = "300px";
+        divElem.style.padding = "12px";
+        divElem.style.transition = "1s opacity, 1s right";
+        divElem.style.background = "#FEE6D6";
+        divElem.style.color = "#1F293A";
+        divElem.style.zIndex = "1000";
+        divElem.style.display = "flex";
+        divElem.innerHTML = innerHtml;
+
+        const closeBtn = document.createElement("button");
+        closeBtn.style.position = "absolute";
+        closeBtn.style.top = "8px";
+        closeBtn.style.right = "8px";
+        closeBtn.style.background = "transparent";
+        closeBtn.style.border = "none";
+        closeBtn.style.cursor = "pointer";
+        closeBtn.style.color = "#1F293A";
+        closeBtn.innerHTML =
+            '<svg class="nc-icon" viewBox="0 0 24 24" width="1.2em" height="1.2em"><path fill="currentColor" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275q-.275-.275-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7q-.275.275-.7.275t-.7-.275z"></path></svg>';
+        closeBtn.onclick = () => {
+            divElem.style.display = "none";
+            localStorage.setItem(
+                "lastMaintenanceDismissed",
+                new Date().toISOString().split("T")[0]
+            );
+        };
+
+        const styleEl = document.createElement("style");
+        styleEl.innerHTML = `
+         .maintenance-banner.active {
+         opacity: 1;
+         right:28px !important;
+         }
+               `;
+
+        divElem.appendChild(closeBtn);
+
+        document.body.appendChild(divElem);
+        setTimeout(() => divElem.classList.add("active"), 2000);
+        document.body.appendChild(styleEl);
+    }
+</script>
+<script type="module">
+  var push;
+
+  const clickListener = (e) => {
+    if (e.nc_handled) return;
+    e.nc_handled = true;
+    let target = e.target;
+
+    while (target && !target.getAttribute('data-item-id')) {
+      target = target['parentElement'];
+    }
+    if (!target) return;
+    push({
+      event: "meta/apis-v1",
+      $current_url: location.href,
+      path: location.pathname,
+      hash: location.hash,
+      item_clicked: (target.innerText.split('\n')[1] || "").trim(),
+    });
+  };
+
+  const keydownListener = (e) => {
+    const selectedElement = document.querySelector(".search-input");
+
+    if (selectedElement) {
+      push({
+        event: "meta/apis-v1",
+        $current_url: location.href,
+        path: location.pathname,
+        hash: location.hash,
+        item_clicked: (selectedElement.innerText || "").trim(),
+        search_query: selectedElement.value || "",
+      });
+    }
+  };
+  import {init, push as _push} from "https://www.unpkg.com/nc-analytics@0.0.6/dist/index.js";
+
+  push = _push;
+  init();
+
+  document.body.addEventListener("click", clickListener, true);
+  document.body.addEventListener("keydown", keydownListener, true);
+</script>
+</body>
+<style>
+    .nav {
+        position: sticky;
+        top: 0px;
+        width: 100%;
+        height: 50px;
+        box-sizing: border-box;
+        background: white;
+        border-bottom: 1px solid rgb(204, 204, 204);
+        z-index: 10;
+        padding: 5px;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+</style>
+</html>
