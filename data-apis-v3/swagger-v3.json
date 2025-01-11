@@ -185,7 +185,6 @@
                               "id": "usg0kjqhj5unp9go",
                               "email": "robert@nocodb.com",
                               "display_name": "Robert",
-                              "meta": null
                             }
                           ],
                           "SingleSelect": "Jan",
@@ -198,12 +197,12 @@
                           "CreatedBy": {
                             "id": "usg0kjqhj5unp9go",
                             "email": "robert@nocodb.com",
-                            "display_name": "Robert",
+                            "display_name": "Robert"
                           },
                           "LastModifiedBy": {
                             "id": "usg0kjqhj5unp9go",
                             "email": "robert@nocodb.com",
-                            "display_name": "Robert",
+                            "display_name": "Robert"
                           },
                           "Barcode": "record #1",
                           "QRCode": "record #1",
