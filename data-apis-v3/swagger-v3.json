@@ -1,0 +1,3494 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "qiz1rcfqd2jy6"
+  },
+  "info": {
+    "title": "NocoDB v3",
+    "version": "",
+    "description": "NocoDB API Documentation"
+  },
+  "x-tagGroups": [
+    {
+      "name": "Data APIs",
+      "tags": [
+        "Table Records"
+      ]
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    "/api/v3/tables/{tableId}/records": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tableId",
+          "in": "path",
+          "required": true,
+          "description": "**Table Identifier**."
+        }
+      ],
+      "get": {
+        "summary": "List Table Records",
+        "operationId": "db-data-table-row-list",
+        "description": "This API endpoint allows you to retrieve records from a specified table. You can customize the response by applying various query parameters for filtering, sorting, and formatting.\n\n**Pagination**: The response is paginated by default, with the first page being returned initially. The response includes the following additional information in the `pageInfo` JSON block:\n\n- `totalRows`: Indicates the total number of rows available for the specified conditions (if any).\n- `page`: Specifies the current page number.\n- `pageSize`: Defaults to 25 and defines the number of records on each page.\n- `isFirstPage`: A boolean value that indicates whether the current page is the first page of records in the dataset.\n- `isLastPage`: A boolean value that indicates whether the current page is the last page of records in the dataset.\n\nThe `pageInfo` attributes are particularly valuable when dealing with large datasets that are divided into multiple pages. They enable you to determine whether additional pages of records are available for retrieval or if you've reached the end of the dataset.",
+        "tags": [
+          "Table Records"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "fields",
+            "description": "Allows you to specify the fields that you wish to include in your API response. By default, all the fields are included in the response.\n\nExample: `fields=field1,field2` will include only 'field1' and 'field2' in the API response. \n\nPlease note that it's essential not to include spaces between field names in the comma-separated list."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "sort",
+            "description": "Allows you to specify the fields by which you want to sort the records in your API response. By default, sorting is done in ascending order for the designated fields. To sort in descending order, add a '-' symbol before the field name.\n\nExample: `sort=field1,-field2` will sort the records first by 'field1' in ascending order and then by 'field2' in descending order.\n\nIf `viewId` query parameter is also included, the sort included here will take precedence over any sorting configuration defined in the view.\n\nPlease note that it's essential not to include spaces between field names in the comma-separated list."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "where",
+            "description": "Enables you to define specific conditions for filtering records in your API response. Multiple conditions can be combined using logical operators such as 'and' and 'or'. Each condition consists of three parts: a field name, a comparison operator, and a value.\n\nExample: `where=(field1,eq,value1)~and(field2,eq,value2)` will filter records where 'field1' is equal to 'value1' AND 'field2' is equal to 'value2'. \n\nYou can also use other comparison operators like 'ne' (not equal), 'gt' (greater than), 'lt' (less than), and more, to create complex filtering rules.\n\nIf `viewId` query parameter is also included, then the filters included here will be applied over the filtering configuration defined in the view. \n\nPlease remember to maintain the specified format, and do not include spaces between the different condition components"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Enables you to control the pagination of your API response by specifying the page number you want to retrieve. By default, the first page is returned. If you want to retrieve the next page, you can increment the page number by one.\n\nExample: `page=2` will return the second page of records in the dataset."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "in": "query",
+            "name": "nestedPage",
+            "description": "Enables you to control the pagination of your nested data in API response by specifying the page number you want to retrieve. By default, the first page is returned. If you want to retrieve the next page, you can increment the page number by one.\n\nExample: `page=2` will return the second page of records in the dataset. By nested data we mean Linked records data list."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Enables you to set a limit on the number of records you want to retrieve in your API response. By default, your response includes all the available records, but by using this parameter, you can control the quantity you receive.\n\nExample: `limit=100` will constrain your response to the first 100 records in the dataset."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "viewId",
+            "in": "query",
+            "description": "***View Identifier***. Allows you to fetch records that are currently visible within a specific view. API retrieves records in the order they are displayed if the SORT option is enabled within that view.\n\nAdditionally, if you specify a `sort` query parameter, it will take precedence over any sorting configuration defined in the view. If you specify a `where` query parameter, it will be applied over the filtering configuration defined in the view. \n\nBy default, all fields, including those that are disabled within the view, are included in the response. To explicitly specify which fields to include or exclude, you can use the `fields` query parameter to customize the output according to your requirements."
+          },
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "description": "List of data objects",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "pageInfo": {
+                      "$ref": "#/components/schemas/Paginated",
+                      "description": "Paginated Info"
+                    }
+                  },
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ]
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "list": [
+                        {
+                          "Id": 1,
+                          "SingleLineText": "record #1",
+                          "MultiLineText": "sample long text",
+                          "Email": "user@nocodb.com",
+                          "PhoneNumber": "1234567890",
+                          "URL": "www.google.com",
+                          "Number": 1234,
+                          "Decimal": 100.88,
+                          "Currency": 100,
+                          "Percent": 10,
+                          "Duration": 1010,
+                          "Rating": 3,
+                          "Year": 2020,
+                          "Time": "20:20:00",
+                          "Checkbox": true,
+                          "Date": "2020-01-01",
+                          "Attachment": [
+                            {
+                              "url": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2025/01/11/62e9a6d971350bff43a117a5fe1722093f1afa4f/voice notes_XoKRs.png",
+                              "title": "voice notes.png",
+                              "mimetype": "image/png",
+                              "size": 812244,
+                              "width": 1150,
+                              "height": 1150,
+                              "id": "at0qb41okjqrkl0y",
+                              "thumbnails": {
+                                "tiny": {
+                                  "signedUrl": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/thumbnails/2025/01/11/62e9a6d971350bff43a117a5fe1722093f1afa4f/voice%20notes_XoKRs.png/tiny.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20250111%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20250111T135811Z&X-Amz-Expires=7309&X-Amz-Signature=a2db413c8cd1fb0a4df7019604d572045ecdeb9815b8d34d81d6c83a9a3984dc&X-Amz-SignedHeaders=host&response-content-disposition=inline%3B%20filename%3D%22voice%20notes.png%22&response-content-type=image%2Fjpeg&x-id=GetObject"
+                                },
+                                "small": {
+                                  "signedUrl": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/thumbnails/2025/01/11/62e9a6d971350bff43a117a5fe1722093f1afa4f/voice%20notes_XoKRs.png/small.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20250111%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20250111T135811Z&X-Amz-Expires=7309&X-Amz-Signature=e71c6b8acc8837750fb216cbe960d5aa60bc308a843563dab471374cfb42632d&X-Amz-SignedHeaders=host&response-content-disposition=inline%3B%20filename%3D%22voice%20notes.png%22&response-content-type=image%2Fjpeg&x-id=GetObject"
+                                },
+                                "card_cover": {
+                                  "signedUrl": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/thumbnails/2025/01/11/62e9a6d971350bff43a117a5fe1722093f1afa4f/voice%20notes_XoKRs.png/card_cover.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20250111%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20250111T135811Z&X-Amz-Expires=7309&X-Amz-Signature=30d2c3a5e368cb215ce8e0e4ac9f2f6f7622c776f8e207516819f8428350c3f0&X-Amz-SignedHeaders=host&response-content-disposition=inline%3B%20filename%3D%22voice%20notes.png%22&response-content-type=image%2Fjpeg&x-id=GetObject"
+                                }
+                              },
+                              "signedUrl": "https://nocohub-001-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2025/01/11/62e9a6d971350bff43a117a5fe1722093f1afa4f/voice%20notes_XoKRs.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20250111%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20250111T135811Z&X-Amz-Expires=7309&X-Amz-Signature=698fd5876dda5570f4943d5cf18755b5cb0bf0fd7e59a8d8fc7884fc05e7dc07&X-Amz-SignedHeaders=host&response-content-disposition=inline%3B%20filename%3D%22voice%20notes.png%22&response-content-type=image%2Fpng&x-id=GetObject"
+                            }
+                          ],
+                          "JSON": {
+                            "x": 1,
+                            "y": 2
+                          },
+                          "Geometry": "POINT(1, 1)",
+                          "User": [
+                            {
+                              "id": "usg0kjqhj5unp9go",
+                              "email": "robert@nocodb.com",
+                              "display_name": "Robert",
+                              "meta": null
+                            }
+                          ],
+                          "SingleSelect": "Jan",
+                          "MultiSelect": [
+                            "Jan",
+                            "Feb",
+                            "Mar"
+                          ],
+                          "DateTime": "2022-02-02 00:00:00+00:00",
+                          "CreatedBy": {
+                            "id": "usg0kjqhj5unp9go",
+                            "email": "robert@nocodb.com",
+                            "display_name": "Robert",
+                          },
+                          "LastModifiedBy": {
+                            "id": "usg0kjqhj5unp9go",
+                            "email": "robert@nocodb.com",
+                            "display_name": "Robert",
+                          },
+                          "Barcode": "record #1",
+                          "QRCode": "record #1",
+                          "Lookup": [
+                            "record #2",
+                            "record #3",
+                            "record #1"
+                          ],
+                          "Button": {
+                            "type": "url",
+                            "label": "Button",
+                            "url": "www.google.com"
+                          },
+                          "Formula": 101.88,
+                          "Rollup": 3,
+                          "hmLinks": 3,
+                          "mmLinks": 3,
+                          "LTAR": [
+                            {
+                              "SingleLineText": "record #1",
+                              "Id": 1
+                            },
+                            {
+                              "SingleLineText": "record #2",
+                              "Id": 2
+                            },
+                            {
+                              "SingleLineText": "record #3",
+                              "Id": 3
+                            }
+                          ]
+                        }
+                      ],
+                      "pageInfo": {
+                        "next": "https://staging.noco.to/api/v3/tables/medhonywr18cysz/records?page=2"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Table Records",
+        "operationId": "db-data-table-row-create",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "Id": 10
+                      },
+                      {
+                        "Id": 11
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        },
+        "tags": [
+          "Table Records"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "Example 1": {
+                  "value": [
+                    {
+                      "SingleLineText": "David",
+                      "LongText": "The sunsets in the small coastal town were a breathtaking sight. The sky would transform from a vibrant blue to warm hues of orange and pink as the day came to an end. Locals and tourists alike would gather at the beach, sipping on cool drinks and watching in awe as the sun dipped below the horizon.",
+                      "CreatedAt": "2023-10-16 08:27:59+00:00",
+                      "UpdatedAt": "2023-10-16 08:56:32+00:00",
+                      "Decimal": 23.658,
+                      "Checkbox": true,
+                      "Attachment": [
+                        {
+                          "url": "https://some-s3-server.com/nc/uploads/2023/10/16/some-key/3niqHLngUKiU2Hupe8.jpeg",
+                          "title": "2 be loved.jpeg",
+                          "mimetype": "image/jpeg",
+                          "size": 146143,
+                          "signedUrl": "https://some-s3-server.com/nc/uploads/2023/10/16/signed-url-misc-info"
+                        }
+                      ],
+                      "MultiSelect": "Jan,Feb",
+                      "SingleSelect": "Jan",
+                      "Date": "2023-10-16",
+                      "Year": 2023,
+                      "Time": "06:02:00",
+                      "PhoneNumber": "123456789",
+                      "Email": "a@b.com",
+                      "URL": "www.google.com",
+                      "Currency": 23,
+                      "Percent": 55,
+                      "Duration": 74040,
+                      "Rating": 1,
+                      "JSON": {
+                        "name": "John Doe",
+                        "age": 30,
+                        "email": "johndoe@example.com",
+                        "isSubscribed": true,
+                        "address": {
+                          "street": "123 Main Street",
+                          "city": "Anytown",
+                          "zipCode": "12345"
+                        },
+                        "hobbies": [
+                          "Reading",
+                          "Hiking",
+                          "Cooking"
+                        ],
+                        "scores": {
+                          "math": 95,
+                          "science": 88,
+                          "history": 75
+                        }
+                      },
+                      "DateTime": "2023-10-16 08:56:32+00:00",
+                      "Geometry": "23.23, 36.54",
+                      "Number": 5248
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "This API endpoint allows the creation of new records within a specified table. Records to be inserted are input as an array of key-value pair objects, where each key corresponds to a field name. Ensure that all the required fields are included in the payload, with exceptions for fields designated as auto-increment or those having default values. \n\nWhen dealing with 'Links' or 'Link To Another Record' field types, you should utilize the 'Create Link' API to insert relevant data. \n\nCertain read-only field types will be disregarded if included in the request. These field types include 'Look Up,' 'Roll Up,' 'Formula,' 'Auto Number,' 'Created By,' 'Updated By,' 'Created At,' 'Updated At,' 'Barcode,' and 'QR Code.'",
+        "parameters": [
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update Table Records",
+        "operationId": "db-data-table-row-update",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "Id": 6
+                      },
+                      {
+                        "Id": 7
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        },
+        "tags": [
+          "Table Records"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "Example 1": {
+                  "value": [
+                    {
+                      "Id": 6,
+                      "SingleLineText": "Updated text-1",
+                      "DateTime": "2023-10-19 08:56:32+00:00",
+                      "Geometry": "23.232, 36.542",
+                      "Number": 52482
+                    },
+                    {
+                      "Id": 7,
+                      "SingleLineText": "Updated text-2",
+                      "DateTime": "2023-10-19 08:56:32+00:00",
+                      "Geometry": "23.232, 36.542",
+                      "Number": 52482
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "This API endpoint allows updating existing records within a specified table identified by an array of Record-IDs, serving as unique identifier for the record. Records to be updated are input as an array of key-value pair objects, where each key corresponds to a field name. Ensure that all the required fields are included in the payload, with exceptions for fields designated as auto-increment or those having default values. \n\nWhen dealing with 'Links' or 'Link To Another Record' field types, you should utilize the 'Create Link' API to insert relevant data. \n\nCertain read-only field types will be disregarded if included in the request. These field types include 'Look Up,' 'Roll Up,' 'Formula,' 'Auto Number,' 'Created By,' 'Updated By,' 'Created At,' 'Updated At,' 'Barcode,' and 'QR Code.'\n\nNote that a PATCH request only updates the specified fields while leaving other fields unaffected. Currently, PUT requests are not supported by this endpoint.",
+        "parameters": [
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete Table Records",
+        "operationId": "db-data-table-row-delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "Id": 1
+                      },
+                      {
+                        "Id": 2
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        },
+        "tags": [
+          "Table Records"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "Example 1": {
+                  "value": [
+                    {
+                      "Id": 1
+                    },
+                    {
+                      "Id": 2
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "This API endpoint allows deleting existing records within a specified table identified by an array of Record-IDs, serving as unique identifier for the record. Records to be deleted are input as an array of record-identifiers.",
+        "parameters": [
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ]
+      }
+    },
+    "/api/v3/tables/{tableId}/records/{recordId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tableId",
+          "in": "path",
+          "required": true,
+          "description": "**Table Identifier**"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "recordId",
+          "in": "path",
+          "required": true,
+          "description": "Record ID"
+        }
+      ],
+      "get": {
+        "summary": "Read Table Record",
+        "operationId": "db-data-table-row-read",
+        "description": "This API endpoint allows you to retrieve a single record identified by Record-ID, serving as unique identifier for the record from a specified table.",
+        "tags": [
+          "Table Records"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "fields",
+            "description": "Allows you to specify the fields that you wish to include in your API response. By default, all the fields are included in the response.\n\nExample: `fields=field1,field2` will include only 'field1' and 'field2' in the API response. \n\nPlease note that it's essential not to include spaces between field names in the comma-separated list."
+          },
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "Id": 1,
+                      "SingleLineText": "David",
+                      "CreatedAt": "2023-10-16 08:27:59+00:00",
+                      "UpdatedAt": "2023-10-16 10:05:41+00:00",
+                      "Year": 2023,
+                      "URL": "www.google.com",
+                      "SingleSelect": "Jan",
+                      "Email": "a@b.com",
+                      "Duration": 74040,
+                      "Decimal": 23.658,
+                      "Currency": 23,
+                      "Barcode": "David",
+                      "JSON": {
+                        "name": "John Doe",
+                        "age": 30,
+                        "email": "johndoe@example.com",
+                        "isSubscribed": true,
+                        "address": {
+                          "street": "123 Main Street",
+                          "city": "Anytown",
+                          "zipCode": "12345"
+                        },
+                        "hobbies": [
+                          "Reading",
+                          "Hiking",
+                          "Cooking"
+                        ],
+                        "scores": {
+                          "math": 95,
+                          "science": 88,
+                          "history": 75
+                        }
+                      },
+                      "QRCode": "David",
+                      "Rollup": 3,
+                      "Date": "2023-10-16",
+                      "Time": "06:02:00",
+                      "Rating": 1,
+                      "Percent": 55,
+                      "Formula": 10,
+                      "Checkbox": true,
+                      "Attachment": [
+                        {
+                          "url": "https://some-s3-server.com/nc/uploads/2023/10/16/some-key/3niqHLngUKiU2Hupe8.jpeg",
+                          "title": "2 be loved.jpeg",
+                          "mimetype": "image/jpeg",
+                          "size": 146143,
+                          "signedUrl": "https://some-s3-server.com/nc/uploads/2023/10/16/signed-url-misc-info"
+                        }
+                      ],
+                      "MultiSelect": "Jan,Feb",
+                      "DateTime": "2023-10-19 08:56:32+00:00",
+                      "LongText": "The sunsets in the small coastal town were a breathtaking sight. The sky would transform from a vibrant blue to warm hues of orange and pink as the day came to an end. Locals and tourists alike would gather at the beach, sipping on cool drinks and watching in awe as the sun dipped below the horizon.",
+                      "Geometry": "23.232, 36.542",
+                      "PhoneNumber": "123456789",
+                      "Number": 52482,
+                      "Links:has-many": 2,
+                      "Links:many-many": 3,
+                      "Links:belongs-to": {
+                        "Id": 1,
+                        "Title": "a"
+                      },
+                      "Lookup": "a"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/api/v3/tables/{tableId}/records/count": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tableId",
+          "in": "path",
+          "required": true,
+          "description": "**Table Identifier**"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "viewId",
+          "in": "query",
+          "description": "**View Identifier**. Allows you to fetch record count that are currently visible within a specific view."
+        }
+      ],
+      "get": {
+        "summary": "Count Table Records",
+        "operationId": "db-data-table-row-count",
+        "description": "This API endpoint allows you to retrieve the total number of records from a specified table or a view. You can narrow down search results by applying `where` query parameter",
+        "tags": [
+          "Table Records"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "where",
+            "description": "Enables you to define specific conditions for filtering record count in your API response. Multiple conditions can be combined using logical operators such as 'and' and 'or'. Each condition consists of three parts: a field name, a comparison operator, and a value.\n\nExample: `where=(field1,eq,value1)~and(field2,eq,value2)` will filter records where 'field1' is equal to 'value1' AND 'field2' is equal to 'value2'. \n\nYou can also use other comparison operators like 'ne' (not equal), 'gt' (greater than), 'lt' (less than), and more, to create complex filtering rules.\n\nIf `viewId` query parameter is also included, then the filters included here will be applied over the filtering configuration defined in the view. \n\nPlease remember to maintain the specified format, and do not include spaces between the different condition components"
+          },
+          {
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ]
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "count": 3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/api/v3/tables/{tableId}/links/{linkFieldId}/records/{recordId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tableId",
+          "in": "path",
+          "required": true,
+          "description": "**Table Identifier**"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "linkFieldId",
+          "in": "path",
+          "required": true,
+          "description": "**Links Field Identifier** corresponding to the relation field `Links` established between tables."
+        }
+      ],
+      "get": {
+        "summary": "List Linked Records",
+        "operationId": "db-data-table-row-nested-list",
+        "description": "This API endpoint allows you to retrieve list of linked records for a specific `Link field` and `Record ID`. The response is an array of objects containing Primary Key and its corresponding display value.",
+        "tags": [
+          "Table Records"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "description": "**Record Identifier** corresponding to the record in this table for which linked records are being fetched."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "fields",
+            "description": "Allows you to specify the fields that you wish to include from the linked records in your API response. By default, only Primary Key and associated display value field is included.\n\nExample: `fields=field1,field2` will include only 'field1' and 'field2' in the API response. \n\nPlease note that it's essential not to include spaces between field names in the comma-separated list."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "sort",
+            "description": "Allows you to specify the fields by which you want to sort linked records in your API response. By default, sorting is done in ascending order for the designated fields. To sort in descending order, add a '-' symbol before the field name.\n\nExample: `sort=field1,-field2` will sort the records first by 'field1' in ascending order and then by 'field2' in descending order.\n\nPlease note that it's essential not to include spaces between field names in the comma-separated list."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "where",
+            "description": "Enables you to define specific conditions for filtering linked records in your API response. Multiple conditions can be combined using logical operators such as 'and' and 'or'. Each condition consists of three parts: a field name, a comparison operator, and a value.\n\nExample: `where=(field1,eq,value1)~and(field2,eq,value2)` will filter linked records where 'field1' is equal to 'value1' AND 'field2' is equal to 'value2'. \n\nYou can also use other comparison operators like 'ne' (not equal), 'gt' (greater than), 'lt' (less than), and more, to create complex filtering rules.\n\nPlease remember to maintain the specified format, and do not include spaces between the different condition components"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Enables you to control the pagination of your API response by specifying the page number you want to retrieve. By default, the first page is returned. If you want to retrieve the next page, you can increment the page number by one.\n\nExample: `page=2` will return the second page of linked records in the dataset."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Enables you to set a limit on the number of linked records you want to retrieve in your API response. By default, your response includes all the available linked records, but by using this parameter, you can control the quantity you receive.\n\nExample: `limit=100` will constrain your response to the first 100 linked records in the dataset."
+          },
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "description": "List of data objects",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "pageInfo": {
+                      "$ref": "#/components/schemas/Paginated",
+                      "description": "Paginated Info"
+                    }
+                  },
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ]
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "list": [
+                        {
+                          "Id": 1,
+                          "SingleLineText": "David"
+                        },
+                        {
+                          "Id": 2,
+                          "SingleLineText": "Jane"
+                        },
+                        {
+                          "Id": 3,
+                          "SingleLineText": "Dave"
+                        },
+                        {
+                          "Id": 4,
+                          "SingleLineText": "Martin"
+                        }
+                      ],
+                      "pageInfo": {
+                        "totalRows": 4,
+                        "page": 1,
+                        "pageSize": 25,
+                        "isFirstPage": true,
+                        "isLastPage": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      },
+      "post": {
+        "summary": "Link Records",
+        "operationId": "db-data-table-row-nested-link",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        },
+        "tags": [
+          "Table Records"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "Example 1": {
+                  "value": [
+                    {
+                      "Id": 4
+                    },
+                    {
+                      "Id": 5
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "This API endpoint allows you to link records to a specific `Link field` and `Record ID`. The request payload is an array of record-ids from the adjacent table for linking purposes. Note that any existing links, if present, will be unaffected during this operation.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "description": "**Record Identifier** corresponding to the record in this table for which links are being created."
+          },
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Unlink Records",
+        "operationId": "db-data-table-row-nested-unlink",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "Example 1": {
+                    "value": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        },
+        "tags": [
+          "Table Records"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "Example 1": {
+                  "value": [
+                    {
+                      "Id": 1
+                    },
+                    {
+                      "Id": 2
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "This API endpoint allows you to unlink records from a specific `Link field` and `Record ID`. The request payload is an array of record-ids from the adjacent table for unlinking purposes. Note that, \n- duplicated record-ids will be ignored.\n- non-existent record-ids will be ignored.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "recordId",
+            "in": "path",
+            "required": true,
+            "description": "**Record Identifier** corresponding to the record in this table for which links are being removed."
+          },
+          {
+            "required": true,
+            "$ref": "#/components/parameters/xc-token"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FormColumn": {
+        "description": "Model for Form Column",
+        "examples": [
+          {
+            "id": "fvc_1m9b0aub791d4m",
+            "description": null,
+            "fk_column_id": "cl_ah9zavkn25ihyd",
+            "fk_view_id": "vw_6fqln9vdytdv8q",
+            "help": "This is a help text",
+            "label": "Form Label",
+            "meta": null,
+            "order": 1,
+            "required": 0,
+            "show": 0,
+            "uuid": null
+          }
+        ],
+        "title": "Form Column Model",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "_cn": "first_name",
+            "alias": "first_name",
+            "created_at": "2022-02-15 12:39:04",
+            "description": "dsdsdsdsd",
+            "fk_column_id": "cl_yvyhsl9u81tokc",
+            "fk_view_id": "vw_s1pf4umdnikoyn",
+            "help": null,
+            "id": "fvc_8z1i7t8aswkqxx",
+            "label": "dsdsds",
+            "order": 1,
+            "required": false,
+            "show": 1,
+            "enable_scanner": true,
+            "updated_at": "2022-02-15 12:39:16",
+            "uuid": null
+          }
+        },
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Unique ID"
+          },
+          "description": {
+            "$ref": "#/components/schemas/TextOrNull",
+            "description": "Form Column Description"
+          },
+          "fk_column_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Foreign Key to Column"
+          },
+          "fk_view_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Foreign Key to View"
+          },
+          "help": {
+            "$ref": "#/components/schemas/TextOrNull",
+            "description": "Form Column Help Text (Not in use)"
+          },
+          "label": {
+            "$ref": "#/components/schemas/TextOrNull",
+            "description": "Form Column Label"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Meta Info"
+          },
+          "order": {
+            "type": "number",
+            "description": "The order among all the columns in the form",
+            "example": 1
+          },
+          "required": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Is this form column required in submission?"
+          },
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Is this column shown in Form?"
+          },
+          "enable_scanner": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Indicates whether the 'Fill by scan' button is visible for this column or not.",
+            "example": true
+          },
+          "uuid": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Form Column UUID (Not in use)"
+          }
+        },
+        "x-stoplight": {
+          "id": "rs2uh5opf10q6"
+        }
+      },
+      "FormColumnReq": {
+        "description": "Model for Form Column Request",
+        "examples": [
+          {
+            "description": null,
+            "help": "This is a help text",
+            "label": "Form Label",
+            "meta": null,
+            "order": 1,
+            "required": 0,
+            "show": 0
+          }
+        ],
+        "title": "Form Column Request Model",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "_cn": "first_name",
+            "alias": "first_name",
+            "created_at": "2022-02-15 12:39:04",
+            "description": "dsdsdsdsd",
+            "fk_column_id": "cl_yvyhsl9u81tokc",
+            "fk_view_id": "vw_s1pf4umdnikoyn",
+            "help": null,
+            "id": "fvc_8z1i7t8aswkqxx",
+            "label": "dsdsds",
+            "order": 1,
+            "required": false,
+            "show": 1,
+            "updated_at": "2022-02-15 12:39:16",
+            "uuid": null
+          }
+        },
+        "properties": {
+          "description": {
+            "$ref": "#/components/schemas/TextOrNull",
+            "description": "Form Column Description"
+          },
+          "help": {
+            "$ref": "#/components/schemas/TextOrNull",
+            "description": "Form Column Help Text (Not in use)"
+          },
+          "label": {
+            "$ref": "#/components/schemas/TextOrNull",
+            "description": "Form Column Label"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Meta Info"
+          },
+          "order": {
+            "type": "number",
+            "description": "The order among all the columns in the form"
+          },
+          "required": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Is this form column required in submission?"
+          },
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Is this column shown in Form?"
+          }
+        },
+        "x-stoplight": {
+          "id": "a1vgymjna1ose"
+        }
+      },
+      "GalleryColumn": {
+        "description": "Model for Gallery Column",
+        "examples": [
+          {
+            "fk_col_id": "string",
+            "fk_gallery_id": "string",
+            "help": "string",
+            "id": "string",
+            "label": "string"
+          }
+        ],
+        "properties": {
+          "fk_col_id": {
+            "type": "string"
+          },
+          "fk_gallery_id": {
+            "type": "string"
+          },
+          "help": {
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Unique ID"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "title": "Gallery Column Model",
+        "type": "object",
+        "x-stoplight": {
+          "id": "auloy6128iwh9"
+        }
+      },
+      "GridColumn": {
+        "description": "Model for Grid Column",
+        "examples": [
+          {
+            "id": "nc_c8jz4kxe6xvh11",
+            "fk_view_id": "vw_p2jcatxz4mvcfw",
+            "fk_column_id": "cl_c5knoi4xs4sfpt",
+            "base_id": "p_xm3thidrblw4n7",
+            "source_id": "ds_g4ccx6e77h1dmi",
+            "show": 0,
+            "order": 1,
+            "width": "200px",
+            "help": null,
+            "group_by": 0,
+            "group_by_order": null,
+            "group_by_sort": null,
+            "aggregation": "sum"
+          }
+        ],
+        "title": "Grid Column Model",
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Unique ID",
+            "x-stoplight": {
+              "id": "jc14yojp52rqj"
+            }
+          },
+          "fk_view_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Foreign Key to View",
+            "x-stoplight": {
+              "id": "vl18dbt5c2r8r"
+            }
+          },
+          "fk_column_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Foreign Key to Column",
+            "x-stoplight": {
+              "id": "2drg88fmodf3v"
+            }
+          },
+          "base_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Base ID",
+            "x-stoplight": {
+              "id": "2drg88fmodf3v"
+            }
+          },
+          "source_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Source ID",
+            "x-stoplight": {
+              "id": "2drg88fmodf3v"
+            }
+          },
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "d47eer13oa8yr"
+            }
+          },
+          "order": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "d47eer13oa8yr"
+            },
+            "example": 1,
+            "description": "Grid Column Order"
+          },
+          "width": {
+            "type": "string",
+            "description": "Column Width",
+            "example": "200px"
+          },
+          "help": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Column Help Text",
+            "x-stoplight": {
+              "id": "azwh6zn37qzkc"
+            }
+          },
+          "group_by": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Group By"
+          },
+          "group_by_order": {
+            "type": "number",
+            "description": "Group By Order",
+            "example": 1
+          },
+          "group_by_sort": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Group By Sort",
+            "example": "asc"
+          },
+          "aggregation": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Aggregation",
+            "example": "sum"
+          }
+        },
+        "x-stoplight": {
+          "id": "195gzd7s6p7nv"
+        }
+      },
+      "GridColumnReq": {
+        "description": "Model for Grid Column Request",
+        "examples": [
+          {
+            "fk_column_id": "cl_c5knoi4xs4sfpt",
+            "label": "My Column",
+            "width": "200px"
+          }
+        ],
+        "properties": {
+          "fk_column_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Foreign Key to Column"
+          },
+          "help": {
+            "maxLength": 255,
+            "type": "string"
+          },
+          "label": {
+            "description": "The label of the column",
+            "example": "My Column",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "width": {
+            "description": "The width of the column",
+            "example": "200px",
+            "maxLength": 255,
+            "pattern": "^[0-9]+(px|%)$",
+            "type": "string"
+          },
+          "group_by": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Group By"
+          },
+          "group_by_order": {
+            "type": "number",
+            "description": "Group By Order",
+            "example": 1
+          },
+          "group_by_sort": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Group By Sort",
+            "example": "asc"
+          },
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Show"
+          },
+          "order": {
+            "type": "number",
+            "description": "Order",
+            "example": 1
+          },
+          "aggregation": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Aggregation",
+            "example": "sum"
+          }
+        },
+        "title": "Grid Column Request Model",
+        "type": "object",
+        "x-stoplight": {
+          "id": "9yhalgmix6d0m"
+        }
+      },
+      "KanbanColumn": {
+        "description": "Model for Kanban Column",
+        "examples": [
+          {
+            "id": "kvc_2skkg5mi1eb37f",
+            "fk_column_id": "cl_hzos4ghyncqi4k",
+            "fk_view_id": "vw_wqs4zheuo5lgdy",
+            "source_id": "ds_hd4ojj0xpquaam",
+            "base_id": "p_kzfl5lb0t3tcok",
+            "title": "string",
+            "show": 0,
+            "order": "1"
+          }
+        ],
+        "title": "Kanban Column Model",
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Unique ID"
+          },
+          "fk_column_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Foreign Key to Column"
+          },
+          "fk_view_id": {
+            "$ref": "#/components/schemas/Id",
+            "x-stoplight": {
+              "id": "t1fy4zy561ih8"
+            },
+            "description": "Foreign Key to View"
+          },
+          "source_id": {
+            "$ref": "#/components/schemas/Id",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Baes ID\n"
+          },
+          "base_id": {
+            "$ref": "#/components/schemas/Id",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Base ID"
+          },
+          "title": {
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Base ID",
+            "type": "string"
+          },
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown?"
+          },
+          "order": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "pbnchzgci5dwa"
+            },
+            "example": 1,
+            "description": "Column Order"
+          }
+        },
+        "x-stoplight": {
+          "id": "psbv6c6y9qvbu"
+        }
+      },
+      "KanbanColumnReq": {
+        "description": "Model for Kanban Column Request",
+        "examples": [
+          {
+            "title": "string",
+            "show": 0,
+            "order": "1"
+          }
+        ],
+        "title": "Kanban Column Model Request",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title"
+          },
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Is this column shown?"
+          },
+          "order": {
+            "type": "number",
+            "example": 1,
+            "description": "Column Order"
+          }
+        }
+      },
+      "GalleryColumnReq": {
+        "description": "Model for Gallery Column Request",
+        "examples": [
+          {
+            "label": "My Column",
+            "width": "200px"
+          }
+        ],
+        "properties": {
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Show"
+          },
+          "order": {
+            "type": "number",
+            "description": "Order",
+            "example": 1
+          }
+        }
+      },
+      "CalendarColumn": {
+        "description": "Model for Calendar Column",
+        "examples": [
+          {
+            "id": "kvc_2skkg5mi1eb37f",
+            "fk_column_id": "cl_hzos4ghyncqi4k",
+            "fk_view_id": "vw_wqs4zheuo5lgdy",
+            "source_id": "ds_hd4ojj0xpquaam",
+            "base_id": "p_kzfl5lb0t3tcok",
+            "title": "string",
+            "show": 0,
+            "bold": 0,
+            "italic": 0,
+            "underline": 0,
+            "order": "1"
+          }
+        ],
+        "title": "Calendar Column Model",
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Unique ID"
+          },
+          "fk_column_id": {
+            "$ref": "#/components/schemas/Id",
+            "description": "Foreign Key to Column"
+          },
+          "fk_view_id": {
+            "$ref": "#/components/schemas/Id",
+            "x-stoplight": {
+              "id": "t1fy4zy561ih8"
+            },
+            "description": "Foreign Key to View"
+          },
+          "source_id": {
+            "$ref": "#/components/schemas/Id",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Baes ID\n"
+          },
+          "base_id": {
+            "$ref": "#/components/schemas/Id",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Base ID"
+          },
+          "title": {
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Base ID",
+            "type": "string"
+          },
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown?"
+          },
+          "bold": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown as bold?"
+          },
+          "italic": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown as italic?"
+          },
+          "underline": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown underlines?"
+          },
+          "order": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "pbnchzgci5dwa"
+            },
+            "example": 1,
+            "description": "Column Order"
+          }
+        },
+        "x-stoplight": {
+          "id": "psbv6c6y9qvbu"
+        }
+      },
+      "CalendarColumnReq": {
+        "description": "Model for Calendar Column Request",
+        "examples": [
+          {
+            "title": "string",
+            "show": 0,
+            "bold": 0,
+            "italic": 0,
+            "underline": 0,
+            "order": "1"
+          }
+        ],
+        "title": "Calendar Column Model",
+        "type": "object",
+        "properties": {
+          "show": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown?"
+          },
+          "bold": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown as bold?"
+          },
+          "italic": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown as italic?"
+          },
+          "underline": {
+            "$ref": "#/components/schemas/Bool",
+            "x-stoplight": {
+              "id": "uqq8xmyz97t1u"
+            },
+            "description": "Is this column shown underlines?"
+          },
+          "order": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "pbnchzgci5dwa"
+            },
+            "example": 1,
+            "description": "Column Order"
+          }
+        },
+        "x-stoplight": {
+          "id": "psbv6c6y9qvbu"
+        }
+      },
+      "ProjectUserV3Req": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the user.",
+            "example": "user_1"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@nocodb.com",
+            "description": "The email address of the user."
+          },
+          "base_role": {
+            "type": "string",
+            "example": "base-level-owner",
+            "description": "The base role assigned to the user, if any. Can be null."
+          },
+          "workspace_role": {
+            "type": "string",
+            "example": "workspace-level-owner",
+            "nullable": true,
+            "description": "The role assigned to the user at the workspace level."
+          }
+        },
+        "required": [
+          "email",
+          "base_role"
+        ]
+      },
+      "ProjectUserDeleteV3Req": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "usg4t1a5sdb3eesf",
+            "description": "The unique identifier for the user."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@nocodb.com",
+            "description": "The email address of the user."
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "required": [
+              "email"
+            ]
+          }
+        ],
+        "description": "At least one of the properties (`id` or `email`) must be provided."
+      },
+      "BaseV3Req": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "My Base",
+            "description": "The name of the base."
+          },
+          "description": {
+            "type": "string",
+            "example": "This is my base.",
+            "description": "The description of the base."
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "icon_color": {
+                "type": "string",
+                "example": "#36BFFF",
+                "description": "The color of the icon associated with the base."
+              }
+            }
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "TableV3Req": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "My Table",
+            "description": "The name of the table."
+          },
+          "description": {
+            "type": "string",
+            "example": "This is my table.",
+            "description": "The description of the table."
+          },
+          "source_id": {
+            "type": "string",
+            "example": "ds_1",
+            "description": "The ID of the source associated with the table."
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "Filter": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the filter."
+          },
+          "fk_view_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the associated view."
+          },
+          "fk_hook_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the associated hook."
+          },
+          "fk_link_col_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the linked column."
+          },
+          "fk_value_col_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the value column."
+          },
+          "fk_parent_column_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the parent column."
+          },
+          "fk_column_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the column."
+          },
+          "comparison_op": {
+            "type": "string",
+            "description": "The primary comparison operator (e.g., '=', '!=', '<', '>')."
+          },
+          "comparison_sub_op": {
+            "type": "string",
+            "description": "The secondary comparison operator (e.g., 'LIKE', 'IN')."
+          },
+          "value": {
+            "type": "string",
+            "description": "Value to compare against."
+          },
+          "fk_parent_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the parent object."
+          },
+          "is_group": {
+            "type": "boolean",
+            "description": "Indicates if the filter is part of a group."
+          },
+          "logical_op": {
+            "type": "string",
+            "description": "Logical operator (e.g., 'AND', 'OR') used in group filters."
+          },
+          "base_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier for the base context of the filter."
+          },
+          "source_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier for the source context of the filter."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order of the filter in the sequence."
+          }
+        },
+        "required": [
+          "id",
+          "fk_view_id",
+          "comparison_op",
+          "value",
+          "logical_op"
+        ]
+      },
+      "FilterCreateRequest": {
+        "type": "object",
+        "properties": {
+          "fk_hook_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the associated hook."
+          },
+          "fk_link_col_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the linked column."
+          },
+          "fk_value_col_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the value column."
+          },
+          "fk_parent_column_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the parent column."
+          },
+          "fk_column_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the column."
+          },
+          "comparison_op": {
+            "type": "string",
+            "description": "The primary comparison operator (e.g., '=', '!=', '<', '>')."
+          },
+          "comparison_sub_op": {
+            "type": "string",
+            "description": "The secondary comparison operator (e.g., 'LIKE', 'IN')."
+          },
+          "value": {
+            "type": "string",
+            "description": "Value to compare against."
+          },
+          "fk_parent_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the parent object."
+          },
+          "is_group": {
+            "type": "boolean",
+            "description": "Indicates if the filter is part of a group."
+          },
+          "logical_op": {
+            "type": "string",
+            "description": "Logical operator (e.g., 'AND', 'OR') used in group filters."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order of the filter in the sequence."
+          }
+        },
+        "required": [
+          "fk_hook_id",
+          "fk_link_col_id",
+          "fk_value_col_id",
+          "fk_column_id",
+          "comparison_op",
+          "value",
+          "logical_op"
+        ]
+      },
+      "FilterUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "fk_hook_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the associated hook."
+          },
+          "fk_link_col_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the linked column."
+          },
+          "fk_value_col_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the value column."
+          },
+          "fk_parent_column_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the parent column."
+          },
+          "fk_column_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the column."
+          },
+          "comparison_op": {
+            "type": "string",
+            "description": "The primary comparison operator (e.g., '=', '!=', '<', '>')."
+          },
+          "comparison_sub_op": {
+            "type": "string",
+            "description": "The secondary comparison operator (e.g., 'LIKE', 'IN')."
+          },
+          "value": {
+            "type": "string",
+            "description": "Value to compare against."
+          },
+          "fk_parent_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Foreign key to the parent object."
+          },
+          "is_group": {
+            "type": "boolean",
+            "description": "Indicates if the filter is part of a group."
+          },
+          "logical_op": {
+            "type": "string",
+            "description": "Logical operator (e.g., 'AND', 'OR') used in group filters."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order of the filter in the sequence."
+          }
+        }
+      },
+      "Sort": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the sort."
+          },
+          "field_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier for the field being sorted."
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "Sorting direction, either 'asc' (ascending) or 'desc' (descending)."
+          }
+        },
+        "required": [
+          "id",
+          "field_id",
+          "direction"
+        ]
+      },
+      "SortCreateRequest": {
+        "type": "object",
+        "properties": {
+          "field_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier for the field being sorted."
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "Sorting direction, either 'asc' (ascending) or 'desc' (descending)."
+          }
+        },
+        "required": [
+          "field_id",
+          "direction"
+        ]
+      },
+      "SortUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "field_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier for the field being sorted."
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "Sorting direction, either 'asc' (ascending) or 'desc' (descending)."
+          }
+        }
+      },
+      "View": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the view."
+          },
+          "view_name": {
+            "type": "string",
+            "description": "Name of the view."
+          },
+          "view_type": {
+            "type": "string",
+            "enum": [
+              "GRID",
+              "GALLERY",
+              "KANBAN",
+              "CALENDAR",
+              "FORM"
+            ],
+            "description": "Type of the view."
+          },
+          "lock_type": {
+            "type": "string",
+            "enum": [
+              "COLLABARATIVE",
+              "LOCKED",
+              "PERSONAL"
+            ],
+            "description": "Lock type of the view."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the view."
+          },
+          "is_default": {
+            "type": "boolean",
+            "description": "Indicates if this is the default view."
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "locked_view_description": {
+                "type": "string",
+                "description": "Description for locked views."
+              },
+              "locked_by_user_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "User ID of the person who locked the view."
+              }
+            }
+          },
+          "created_by": {
+            "type": "string",
+            "format": "uuid",
+            "description": "User ID of the creator."
+          },
+          "owned_by": {
+            "type": "string",
+            "format": "uuid",
+            "description": "User ID of the owner."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of creation."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of last update."
+          },
+          "filters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filter"
+            },
+            "description": "Filters applied to the view."
+          },
+          "sorts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sort"
+            },
+            "description": "Sort options for the view."
+          }
+        },
+        "discriminator": {
+          "propertyName": "view_type"
+        },
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID for GRID view."
+                    },
+                    "is_hidden": {
+                      "type": "boolean",
+                      "description": "Indicates if the field is hidden in GRID view."
+                    }
+                  }
+                }
+              },
+              "group": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID for grouping in GRID view."
+                    },
+                    "sort": {
+                      "type": "string",
+                      "enum": [
+                        "asc",
+                        "desc"
+                      ],
+                      "description": "Sorting order for the group."
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "view_type",
+              "fields"
+            ],
+            "description": "GRID View"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID displayed in GALLERY view."
+                    },
+                    "cover_image": {
+                      "type": "boolean",
+                      "description": "Indicates if the field is the cover image."
+                    }
+                  }
+                }
+              },
+              "cover_image_field_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Field ID for the cover image."
+              }
+            },
+            "required": [
+              "view_type",
+              "fields"
+            ],
+            "description": "GALLERY View"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID used in KANBAN view."
+                    },
+                    "is_stack_by": {
+                      "type": "boolean",
+                      "description": "Indicates if the field is used for stacking in KANBAN."
+                    }
+                  }
+                }
+              },
+              "cover_image_field_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Field ID for the cover image."
+              },
+              "kanban_stack_by_field_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Field ID used for stacking in KANBAN view."
+              }
+            },
+            "required": [
+              "view_type",
+              "fields"
+            ],
+            "description": "KANBAN View"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID displayed in CALENDAR view."
+                    },
+                    "is_date_field": {
+                      "type": "boolean",
+                      "description": "Indicates if the field is used for date ranges."
+                    }
+                  }
+                }
+              },
+              "calendar_range": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start_field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID for the start date."
+                    },
+                    "end_field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID for the end date."
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "view_type",
+              "fields"
+            ],
+            "description": "CALENDAR View"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Field ID used in FORM view."
+                    },
+                    "is_required": {
+                      "type": "boolean",
+                      "description": "Indicates if the field is required in the form."
+                    }
+                  }
+                }
+              },
+              "form_heading": {
+                "type": "string",
+                "description": "Heading for the form."
+              },
+              "form_sub_heading": {
+                "type": "string",
+                "description": "Subheading for the form."
+              },
+              "form_success_message": {
+                "type": "string",
+                "description": "Success message shown after form submission."
+              },
+              "form_redirect_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL to redirect to after form submission."
+              },
+              "form_redirect_after_secs": {
+                "type": "integer",
+                "description": "Seconds to wait before redirecting."
+              },
+              "form_send_response_email": {
+                "type": "boolean",
+                "description": "Whether to send a response email."
+              },
+              "form_show_another": {
+                "type": "boolean",
+                "description": "Whether to show another form after submission."
+              },
+              "form_show_blank": {
+                "type": "boolean",
+                "description": "Whether to show a blank form after submission."
+              },
+              "form_hide_banner": {
+                "type": "boolean",
+                "description": "Whether to hide the banner on the form."
+              },
+              "form_hide_branding": {
+                "type": "boolean",
+                "description": "Whether to hide branding on the form."
+              },
+              "form_banner_image_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL of the banner image for the form."
+              },
+              "form_logo_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL of the logo for the form."
+              },
+              "form_background_color": {
+                "type": "string",
+                "format": "color",
+                "description": "Background color for the form."
+              }
+            },
+            "required": [
+              "view_type",
+              "fields"
+            ],
+            "description": "FORM View"
+          }
+        ]
+      },
+      "BaseUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the user."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the user."
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the user."
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Display name of the user (if different from name)."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the user was created."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the user was last updated."
+          },
+          "base_role": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "admin",
+              "editor",
+              "viewer",
+              "no-access",
+              null
+            ],
+            "description": "Role of the user for the base. Can be null if not assigned."
+          },
+          "workspace_role": {
+            "type": "string",
+            "enum": [
+              "workspace-level-owner",
+              "workspace-level-admin",
+              "workspace-level-member",
+              "workspace-level-no-access"
+            ],
+            "description": "Role of the user at the workspace level."
+          },
+          "workspace_id": {
+            "type": "string",
+            "description": "Unique identifier for the workspace."
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "created_at",
+          "updated_at",
+          "workspace_role",
+          "workspace_id"
+        ]
+      },
+      "BaseUserList": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseUser"
+            }
+          }
+        },
+        "required": [
+          "users"
+        ]
+      },
+      "BaseMeta": {
+        "type": "object",
+        "properties": {
+          "icon_color": {
+            "type": "string",
+            "format": "color",
+            "description": "Color for the base icon."
+          }
+        },
+        "required": [
+          "icon_color"
+        ]
+      },
+      "BaseCreateUpdate": {
+        "type": "object",
+        "properties": {
+          "base_name": {
+            "type": "string",
+            "description": "Name of the base."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Description of the base. Can include rich text."
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMeta"
+          }
+        },
+        "required": [
+          "base_name",
+          "meta"
+        ]
+      },
+      "Base": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the base."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the base."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Description of the base. Can include rich text."
+          },
+          "meta": {
+            "$ref": "#/components/schemas/BaseMeta"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the base was created."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of when the base was last updated."
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier for the source."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of the source."
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Type of the source (e.g., pg, mysql)."
+                },
+                "is_schema_readonly": {
+                  "type": "boolean",
+                  "description": "Indicates if the schema is read-only."
+                },
+                "is_data_readonly": {
+                  "type": "boolean",
+                  "description": "Indicates if the data is read-only."
+                },
+                "integration_id": {
+                  "type": "string",
+                  "description": "Integration ID for the source."
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "type",
+                "is_schema_readonly",
+                "is_data_readonly",
+                "integration_id"
+              ]
+            },
+            "description": "List of sources associated with the base."
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "meta",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "BaseListResponse": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Base"
+            }
+          }
+        },
+        "required": [
+          "list"
+        ]
+      },
+      "FieldBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Field identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name."
+          },
+          "type": {
+            "type": "string",
+            "description": "Field type."
+          },
+          "default_value": {
+            "type": "string",
+            "description": "Default value for the field."
+          },
+          "description": {
+            "type": "string",
+            "description": "Field description."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type"
+        ]
+      },
+      "FieldOptions_LongText": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "boolean",
+            "description": "Enable rich text formatting."
+          },
+          "generate_text_using_ai": {
+            "type": "boolean",
+            "description": "Allow AI-generated text."
+          }
+        }
+      },
+      "FieldOptions_PhoneNumber": {
+        "type": "object",
+        "properties": {
+          "validation": {
+            "type": "boolean",
+            "description": "Enable validation for phone numbers."
+          }
+        }
+      },
+      "FieldOptions_Number": {
+        "type": "object",
+        "properties": {
+          "precision": {
+            "type": "integer",
+            "description": "Number of decimal places allowed."
+          },
+          "allow_negative": {
+            "type": "boolean",
+            "description": "Allow negative numbers."
+          }
+        }
+      },
+      "FieldOptions_Currency": {
+        "type": "object",
+        "properties": {
+          "locale": {
+            "type": "string",
+            "description": "Locale for currency formatting."
+          },
+          "code": {
+            "type": "string",
+            "description": "Currency code (e.g., USD)."
+          }
+        }
+      },
+      "FieldOptions_Percent": {
+        "type": "object",
+        "properties": {
+          "precision": {
+            "type": "integer",
+            "description": "Number of decimal places allowed."
+          },
+          "show_as_progress": {
+            "type": "boolean",
+            "description": "Display as a progress bar."
+          }
+        }
+      },
+      "FieldOptions_Duration": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "description": "Duration format (e.g., h:mm)."
+          }
+        }
+      },
+      "FieldOptions_DateTime": {
+        "type": "object",
+        "properties": {
+          "date_format": {
+            "type": "string",
+            "description": "Date format (e.g., YYYY/MM/DD)."
+          },
+          "time_format": {
+            "type": "string",
+            "description": "Time format (e.g., HH:mm:ss)."
+          },
+          "12hr_format": {
+            "type": "boolean",
+            "description": "Use 12-hour time format."
+          }
+        }
+      },
+      "FieldOptions_Select": {
+        "type": "object",
+        "properties": {
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Choice identifier."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Choice title."
+                },
+                "color": {
+                  "type": "string",
+                  "description": "Choice color."
+                }
+              }
+            }
+          }
+        }
+      },
+      "FieldOptions_Rating": {
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "description": "Icon to use for ratings."
+          },
+          "max_value": {
+            "type": "integer",
+            "description": "Maximum value for the rating."
+          },
+          "color": {
+            "type": "string",
+            "description": "Color for the rating display."
+          }
+        }
+      },
+      "FieldOptions_Barcode": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "description": "Barcode format (e.g., CODE128)."
+          },
+          "value_field_id": {
+            "type": "string",
+            "description": "Field ID that contains the value."
+          }
+        }
+      },
+      "FieldOptions_Formula": {
+        "type": "object",
+        "properties": {
+          "formula": {
+            "type": "string",
+            "description": "Formula expression."
+          },
+          "reference_field_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Field IDs used in the formula."
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Result type."
+              },
+              "options": {
+                "$ref": "#/components/schemas/FieldOptions_Number"
+              }
+            }
+          }
+        }
+      },
+      "FieldOptions_User": {
+        "type": "object",
+        "properties": {
+          "allow_multiple_users": {
+            "type": "boolean",
+            "description": "Allow selecting multiple users."
+          },
+          "notify_user_when_added": {
+            "type": "boolean",
+            "description": "Notify user when they are added."
+          }
+        }
+      },
+      "FieldOptions_Lookup": {
+        "type": "object",
+        "properties": {
+          "link_field_id": {
+            "type": "string",
+            "description": "Linked field ID."
+          },
+          "linked_table_lookup_field_id": {
+            "type": "string",
+            "description": "Lookup field ID in the linked table."
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Result type."
+              },
+              "options": {
+                "$ref": "#/components/schemas/FieldOptions_Number"
+              }
+            }
+          }
+        }
+      },
+      "Field": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FieldBase"
+          },
+          {
+            "oneOf": [
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "LongText"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_LongText"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "PhoneNumber",
+                      "URL",
+                      "Email"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_PhoneNumber"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Number",
+                      "Decimal"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Number"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Currency"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Currency"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Percent"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Percent"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Duration"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Duration"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Date",
+                      "DateTime",
+                      "Time"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_DateTime"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Single select",
+                      "Multi select"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Select"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Rating",
+                      "Checkbox"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Rating"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Barcode"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Barcode"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Formula"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Formula"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "User"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_User"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "Lookup"
+                    ]
+                  },
+                  "options": {
+                    "$ref": "#/components/schemas/FieldOptions_Lookup"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "Id": {
+        "description": "Model for ID",
+        "examples": [
+          "string"
+        ],
+        "maxLength": 20,
+        "minLength": 0,
+        "title": "ID Model",
+        "type": "string",
+        "x-stoplight": {
+          "id": "upw7it13u2dkn"
+        }
+      },
+      "View": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "view_type": {
+            "type": "string"
+          }
+        }
+      },
+      "Table": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "base_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "display_field_id": {
+            "type": "string"
+          },
+          "workspace_id": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "views": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/View"
+            }
+          }
+        }
+      },
+      "TableCreateUpdate": {
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "table_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "source_id",
+          "table_name"
+        ]
+      },
+      "TableListResponse": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "source_id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "base_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "source_id",
+                "title",
+                "base_id"
+              ]
+            }
+          }
+        },
+        "required": [
+          "list"
+        ]
+      },
+      "FilterGroup": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "type": "string",
+            "description": "Unique identifier for the filter group."
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Parent ID for the group or null if root."
+          },
+          "group_operator": {
+            "type": "string",
+            "enum": [
+              "AND",
+              "OR"
+            ],
+            "description": "Logical operator for the group."
+          }
+        },
+        "required": [
+          "group_id",
+          "group_operator"
+        ]
+      },
+      "Filter": {
+        "type": "object",
+        "properties": {
+          "filter_id": {
+            "type": "string",
+            "description": "Unique identifier for the filter."
+          },
+          "parent_id": {
+            "type": "string",
+            "description": "Parent ID of the filter, specifying its group."
+          },
+          "field_id": {
+            "type": "string",
+            "description": "Field ID to which the filter applies."
+          },
+          "operator": {
+            "type": "string",
+            "description": "Primary comparison operator (e.g., eq, gt, lt)."
+          },
+          "sub_operator": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Secondary comparison operator (if applicable)."
+          },
+          "value": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ],
+            "description": "Value for comparison."
+          }
+        },
+        "required": [
+          "filter_id",
+          "parent_id",
+          "field_id",
+          "operator",
+          "value"
+        ]
+      },
+      "FilterCreateUpdate": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FilterGroup"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "parent_id": {
+                "type": "string",
+                "description": "Parent ID for the filter (e.g., root or group ID)."
+              },
+              "field_id": {
+                "type": "string",
+                "description": "Field ID to which the filter applies."
+              },
+              "comparison_op": {
+                "type": "string",
+                "description": "Primary comparison operator (e.g., eq, gt, lt)."
+              },
+              "comparison_sub_op": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Secondary comparison operator (if applicable)."
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ],
+                "description": "Value for comparison."
+              }
+            },
+            "required": [
+              "parent_id",
+              "field_id",
+              "comparison_op",
+              "value"
+            ]
+          }
+        ]
+      },
+      "FilterListResponse": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/FilterGroup"
+                },
+                {
+                  "$ref": "#/components/schemas/Filter"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "list"
+        ]
+      },
+      "Sort": {
+        "type": "object",
+        "properties": {
+          "sort_id": {
+            "type": "string",
+            "description": "Unique identifier for the sort."
+          },
+          "field_id": {
+            "type": "string",
+            "description": "Field ID to which the sort applies."
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "Direction of sorting (ascending or descending)."
+          }
+        },
+        "required": [
+          "field_id",
+          "direction"
+        ]
+      },
+      "SortListResponse": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sort"
+            }
+          }
+        },
+        "required": [
+          "list"
+        ]
+      },
+      "SortCreate": {
+        "type": "object",
+        "properties": {
+          "field_id": {
+            "type": "string",
+            "description": "Field ID to which the sort applies."
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "Direction of sorting (ascending or descending)."
+          }
+        },
+        "required": [
+          "field_id",
+          "direction"
+        ]
+      },
+      "Paginated": {
+        "description": "Model for Paginated",
+        "examples": [
+          {
+            "next": "http://api.nocodd.com/api/v3/tables/id?page=3",
+            "prev": "http://api.nocodd.com/api/v3/tables/id?page=1"
+          }
+        ],
+        "properties": {
+          "next": {
+            "description": "URL to access next page",
+            "type": "string"
+          },
+          "prev": {
+            "description": "URL to access previous page",
+            "type": "string"
+          },
+          "nestedNext": {
+            "description": "URL to access current page data with next set of nested fields data",
+            "type": "string"
+          },
+          "nestedPrev": {
+            "description": "URL to access current page data with previous set of nested fields data",
+            "type": "string"
+          }
+        },
+        "title": "Paginated Model",
+        "type": "object"
+      },
+      "BaseUserDeleteRequest": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "user_id": {
+              "type": "string",
+              "description": "Unique identifier for the user."
+            }
+          }
+        }
+      },
+      "BaseUserUpdateRequest": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "user_id": {
+              "type": "string",
+              "description": "Unique identifier for the user."
+            },
+            "base_role": {
+              "type": "string",
+              "enum": [
+                "admin",
+                "editor",
+                "viewer",
+                "no-access",
+                null
+              ],
+              "description": "Role of the user for the base. Can be null if not assigned."
+            }
+          }
+        }
+      },
+      "BaseUserInviteRequest": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "user_id": {
+              "type": "string",
+              "description": "Unique identifier for the user."
+            },
+            "base_role": {
+              "type": "string",
+              "enum": [
+                "admin",
+                "editor",
+                "viewer",
+                "no-access",
+                null
+              ],
+              "description": "Role of the user for the base. Can be null if not assigned."
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "BadReqeust",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "x-stoplight": {
+                    "id": "p9mk4oi0hbihm"
+                  },
+                  "example": "BadRequest [Error]: <ERROR MESSAGE>"
+                }
+              },
+              "required": [
+                "msg"
+              ]
+            },
+            "examples": {
+              "Example 1": {
+                "value": {
+                  "msg": "BadRequest [Error]: <ERROR MESSAGE>"
+                }
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    },
+    "securitySchemes": {
+      "xc-auth": {
+        "name": "Auth Token ",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Auth Token is a JWT Token generated based on the logged-in user. By default, the token is only valid for 10 hours. However, you can change the value by defining it using environment variable `NC_JWT_EXPIRES_IN`."
+      },
+      "xc-shared-base-id": {
+        "name": "Shared Base ID",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Shared base uuid"
+      },
+      "xc-shared-erd-id": {
+        "name": "Shared ERD ID",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Shared ERD uuid"
+      }
+    },
+    "parameters": {
+      "xc-token": {
+        "name": "xc-token",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "API Token. Refer [here](https://docs.nocodb.com/account-settings/api-tokens/) to know more"
+      }
+    }
+  }
+}
