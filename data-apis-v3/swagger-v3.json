@@ -37,7 +37,7 @@
       "get": {
         "summary": "List Table Records",
         "operationId": "db-data-table-row-list",
-        "description": "This API endpoint allows you to retrieve records from a specified table. You can customize the response by applying various query parameters for filtering, sorting, and formatting.\n\n**Pagination**: The response is paginated by default, with the first page being returned initially. The response includes the following additional information in the `pageInfo` JSON block:\n\n- `totalRows`: Indicates the total number of rows available for the specified conditions (if any).\n- `page`: Specifies the current page number.\n- `pageSize`: Defaults to 25 and defines the number of records on each page.\n- `isFirstPage`: A boolean value that indicates whether the current page is the first page of records in the dataset.\n- `isLastPage`: A boolean value that indicates whether the current page is the last page of records in the dataset.\n\nThe `pageInfo` attributes are particularly valuable when dealing with large datasets that are divided into multiple pages. They enable you to determine whether additional pages of records are available for retrieval or if you've reached the end of the dataset.",
+        "description": "This API endpoint allows you to retrieve records from a specified table. You can customize the response by applying various query parameters for filtering, sorting, and formatting.\n\n**Pagination**: The response is paginated by default, with the first page being returned initially. The response includes the following additional information in the `pageInfo` JSON block:\n\n- **next**: Contains the URL to retrieve the next page of records. For example, `\"https://staging.noco.to/api/v3/tables/medhonywr18cysz/records?page=2\"` points to the next page of records.\n- If there are no more records available (you are on the last page), this attribute will be _null_.\n\nThe `pageInfo` attribute is particularly valuable when working with large datasets divided into multiple pages. It provides the necessary URL to seamlessly fetch subsequent pages, enabling efficient navigation through the dataset.",
         "tags": [
           "Table Records"
         ],
@@ -82,7 +82,7 @@
             },
             "in": "query",
             "name": "nestedPage",
-            "description": "Enables you to control the pagination of your nested data in API response by specifying the page number you want to retrieve. By default, the first page is returned. If you want to retrieve the next page, you can increment the page number by one.\n\nExample: `page=2` will return the second page of records in the dataset. By nested data we mean Linked records data list."
+            "description": "Enables you to control the pagination of your nested data (linked records) in API response by specifying the page number you want to retrieve. By default, the first page is returned. If you want to retrieve the next page, you can increment the page number by one.\n\nExample: `page=2` will return the second page of nested data records in the dataset."
           },
           {
             "schema": {
@@ -184,7 +184,7 @@
                             {
                               "id": "usg0kjqhj5unp9go",
                               "email": "robert@nocodb.com",
-                              "display_name": "Robert",
+                              "display_name": "Robert"
                             }
                           ],
                           "SingleSelect": "Jan",
