@@ -54,16 +54,16 @@
     if (this.readyState == 4 && this.status == 200) {
       const swaggerJson = this.responseText;
       const swagger = JSON.parse(swaggerJson);
-      // swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
-      //
-      //   // skip api-token/plugin/org/public apis
-      //   if (!Object.values(pathMeta).some((methodMeta) => methodMeta && methodMeta.operationId && /^(org-|plugin-)/.test(methodMeta.operationId))
-      //     && !/^\/api\/v2\/tables|\/api\/v2\/public|^\/api\/v1\/data|storage\/upload-by-url/.test(path)) {
-      //     pathObj[path] = pathMeta;
-      //   }
-      //
-      //   return pathObj;
-      // }, {});
+      // filter meta apis
+      swagger.paths = Object.entries(swagger.paths).reduce((pathObj, [path, pathMeta]) => {
+
+        // skip non meta APIs
+        if (/^\/api\/v3\/meta\//.test(path)) {
+          pathObj[path] = pathMeta;
+        }
+
+        return pathObj;
+      }, {});
 
       swagger.info.title = 'NocoDB'
       swagger.info.version = null
