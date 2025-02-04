@@ -2799,7 +2799,7 @@
             "application/json": {
               "schema": {
                 "allOf":[
-                  {
+                  { 
                     "$ref": "#/components/schemas/SharedBaseReq"
                   },
                   {
@@ -5319,7 +5319,7 @@
             "application/json": {
               "schema": {
                 "allOf":[
-                  {
+                  { 
                     "$ref": "#/components/schemas/SharedViewReq"
                   },
                   {
