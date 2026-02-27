@@ -12957,7 +12957,8 @@
               "mm",
               "hm",
               "bt",
-              "oo"
+              "oo",
+              "ln"
             ]
           },
           "name": "relationType",
@@ -13070,7 +13071,8 @@
               "mm",
               "hm",
               "bt",
-              "oo"
+              "oo",
+              "ln"
             ]
           },
           "name": "relationType",
@@ -13296,7 +13298,8 @@
               "mm",
               "hm",
               "bt",
-              "oo"
+              "oo",
+              "ln"
             ]
           },
           "name": "relationType",
@@ -14911,7 +14914,8 @@
               "mm",
               "hm",
               "bt",
-              "oo"
+              "oo",
+              "ln"
             ]
           },
           "name": "relationType",
@@ -22345,7 +22349,9 @@
               "LastModifiedBy",
               "AI",
               "Order",
-              "Meta"
+              "Meta",
+              "Colour",
+              "UUID"
             ],
             "type": "string"
           },
@@ -22788,6 +22794,14 @@
             "$ref": "#/components/schemas/StringOrNull",
             "description": "Foreign Key to Link Column"
           },
+          "fk_rls_policy_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to RLS Policy"
+          },
+          "fk_button_col_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to Button Column"
+          },
           "id": {
             "$ref": "#/components/schemas/Id",
             "description": "Unique ID"
@@ -22827,6 +22841,14 @@
             "type": "number",
             "description": "The order of the filter",
             "example": 1
+          },
+          "enabled": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Whether this filter is enabled. Disabled filters are skipped during evaluation."
+          },
+          "fk_level_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to List View Level"
           }
         },
         "readOnly": true,
@@ -23138,6 +23160,14 @@
           },
           "value": {
             "description": "The filter value. Can be NULL for some operators."
+          },
+          "enabled": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Whether this filter is enabled. Disabled filters are skipped during evaluation."
+          },
+          "fk_level_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to List View Level"
           }
         },
         "readOnly": true
@@ -23700,6 +23730,13 @@
           "model": {
             "description": "AI model",
             "type": "string"
+          },
+          "filters": {
+            "description": "Visibility condition filters for the button",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filter"
+            }
           }
         },
         "x-stoplight": {
@@ -25622,6 +25659,8 @@
               "bt",
               "hm",
               "mm",
+              "om",
+              "mo",
               "oo"
             ],
             "type": "string",
@@ -25671,7 +25710,8 @@
             "order": "string",
             "type": "string",
             "ur": "string",
-            "virtual": true
+            "virtual": true,
+            "version": 2
           }
         ],
         "properties": {
@@ -25739,6 +25779,9 @@
           },
           "fk_mm_source_id": {
             "type": "string"
+          },
+          "version": {
+            "type": "number"
           }
         },
         "title": "LinkToAnotherRecord Model",
@@ -26216,7 +26259,9 @@
               "LastModifiedBy",
               "AI",
               "Order",
-              "Meta"
+              "Meta",
+              "Colour",
+              "UUID"
             ],
             "type": "string",
             "description": "UI Data Type"
@@ -26799,6 +26844,14 @@
                 "granted_type"
               ]
             }
+          },
+          "is_sandbox": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Indicates if the base is a sandbox"
+          },
+          "is_sandbox_master": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Indicates if the base is a sandbox master"
           }
         },
         "x-stoplight": {
@@ -27635,6 +27688,10 @@
             "description": "Base ID",
             "example": "p_9sx43moxhqtjm3",
             "readOnly": true
+          },
+          "fk_level_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to List View Level"
           }
         },
         "x-stoplight": {
@@ -27748,6 +27805,10 @@
               "desc"
             ],
             "type": "string"
+          },
+          "fk_level_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to List View Level"
           }
         },
         "x-stoplight": {
@@ -28912,6 +28973,9 @@
               },
               {
                 "$ref": "#/components/schemas/Calendar"
+              },
+              {
+                "$ref": "#/components/schemas/List"
               }
             ],
             "description": "Associated View Model"
@@ -30241,6 +30305,217 @@
           "custom_path": {
             "type": "string",
             "description": "Custom url path"
+          }
+        }
+      },
+      "ListViewLevel": {
+        "description": "Model for List View Level",
+        "title": "ListViewLevel Model",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Unique ID for Level",
+            "type": "string"
+          },
+          "fk_view_id": {
+            "description": "Foreign Key to View",
+            "type": "string"
+          },
+          "level": {
+            "description": "Level number (1, 2, or 3)",
+            "type": "number"
+          },
+          "fk_model_id": {
+            "description": "Foreign Key to Model (table) for this level",
+            "type": "string"
+          },
+          "fk_link_column_id": {
+            "description": "Foreign Key to Link Column connecting levels",
+            "type": "string"
+          },
+          "enable_nested_records": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Enable nested records (Level 1 only)"
+          },
+          "fk_self_link_column_id": {
+            "description": "Foreign Key to Self-Link Column",
+            "type": "string"
+          },
+          "wrap_headers": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Wrap column headers in this level"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Meta data for this level"
+          }
+        }
+      },
+      "List": {
+        "description": "Model for List View",
+        "title": "List Model",
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "description": "The ID of the source that this view belongs to",
+            "type": "string"
+          },
+          "columns": {
+            "description": "Columns in this view",
+            "items": {
+              "$ref": "#/components/schemas/ListColumn"
+            },
+            "type": "array"
+          },
+          "fk_view_id": {
+            "description": "Foreign Key to View",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Meta data for this view"
+          },
+          "order": {
+            "description": "The order of the list",
+            "type": "number"
+          },
+          "base_id": {
+            "description": "The ID of the base that this view belongs to",
+            "type": "string"
+          },
+          "show": {
+            "description": "To show this view or not",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "Title of List View",
+            "type": "string"
+          },
+          "show_empty_parents": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Show empty parent sections"
+          },
+          "row_height": {
+            "description": "Row height for this list view",
+            "type": "number"
+          },
+          "fk_prefix_column_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to Prefix Column"
+          },
+          "levels": {
+            "description": "Levels configuration for this list view",
+            "items": {
+              "$ref": "#/components/schemas/ListViewLevel"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "ListColumn": {
+        "description": "Model for List Column",
+        "title": "ListColumn Model",
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "description": "The ID of the source",
+            "type": "string"
+          },
+          "fk_column_id": {
+            "description": "Foreign Key to Column",
+            "type": "string"
+          },
+          "fk_view_id": {
+            "description": "Foreign Key to View",
+            "type": "string"
+          },
+          "fk_level_id": {
+            "description": "Foreign Key to Level",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique ID of List Column",
+            "type": "string"
+          },
+          "order": {
+            "description": "The order in the list of columns",
+            "type": "number"
+          },
+          "base_id": {
+            "description": "The ID of the base",
+            "type": "string"
+          },
+          "show": {
+            "description": "Whether to show this column or not",
+            "type": "number"
+          },
+          "width": {
+            "description": "Column width",
+            "type": "string"
+          }
+        }
+      },
+      "ListUpdateReq": {
+        "description": "Model for List View Update Request",
+        "title": "ListUpdateReq Model",
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Meta data for this view"
+          },
+          "show_empty_parents": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Show empty parent sections"
+          },
+          "row_height": {
+            "description": "Row height for this list view",
+            "type": "number"
+          },
+          "fk_prefix_column_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to Prefix Column"
+          },
+          "levels": {
+            "description": "Levels configuration for this list view",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListViewLevelReq"
+            }
+          }
+        }
+      },
+      "ListViewLevelReq": {
+        "description": "Model for List View Level Request",
+        "title": "ListViewLevelReq Model",
+        "type": "object",
+        "required": [
+          "level",
+          "fk_model_id"
+        ],
+        "properties": {
+          "level": {
+            "description": "Level number (1, 2, or 3)",
+            "type": "number"
+          },
+          "fk_model_id": {
+            "description": "Foreign Key to Model (table) for this level",
+            "type": "string"
+          },
+          "fk_link_column_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to Link Column"
+          },
+          "enable_nested_records": {
+            "$ref": "#/components/schemas/Bool"
+          },
+          "fk_self_link_column_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Foreign Key to Self-Link Column"
+          },
+          "wrap_headers": {
+            "$ref": "#/components/schemas/Bool",
+            "description": "Wrap column headers in this level"
           }
         }
       }
