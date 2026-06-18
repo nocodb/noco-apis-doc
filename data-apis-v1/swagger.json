@@ -23385,7 +23385,7 @@
             }
           },
           "email": {
-            "$ref": "#/components/schemas/StringOrNull",
+            "$ref": "#/components/schemas/TextOrNull",
             "description": "Email to sned after form is submitted"
           },
           "fk_model_id": {
@@ -23504,7 +23504,7 @@
             "description": "Banner Image URL"
           },
           "email": {
-            "$ref": "#/components/schemas/StringOrNull",
+            "$ref": "#/components/schemas/TextOrNull",
             "description": "Email to sned after form is submitted"
           },
           "heading": {
