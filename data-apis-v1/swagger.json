@@ -990,6 +990,16 @@
                       "type": "boolean",
                       "description": "Status of invite only signup",
                       "example": true
+                    },
+                    "restrict_workspace_creation": {
+                      "type": "boolean",
+                      "description": "Restrict workspace creation to super admin only",
+                      "example": false
+                    },
+                    "allow_email_signin_with_sso": {
+                      "type": "boolean",
+                      "description": "Show the email/password sign-in form alongside SSO (self-hosted only)",
+                      "example": false
                     }
                   }
                 },
@@ -1066,6 +1076,16 @@
                     "type": "boolean",
                     "description": "Status of invite only signup",
                     "example": true
+                  },
+                  "restrict_workspace_creation": {
+                    "type": "boolean",
+                    "description": "Restrict workspace creation to super admin only",
+                    "example": false
+                  },
+                  "allow_email_signin_with_sso": {
+                    "type": "boolean",
+                    "description": "Show the email/password sign-in form alongside SSO (self-hosted only)",
+                    "example": false
                   }
                 }
               },
