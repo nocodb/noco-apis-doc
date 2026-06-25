@@ -30088,7 +30088,7 @@
                 "type": "string"
               },
               "minItems": 1,
-              "maxItems": 100
+              "maxItems": 1000
             }
           },
           "required": [
