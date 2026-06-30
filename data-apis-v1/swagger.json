@@ -15948,7 +15948,8 @@
               "view",
               "after",
               "before",
-              "manual"
+              "manual",
+              "comment"
             ]
           },
           "name": "event",
@@ -24676,6 +24677,52 @@
           }
         }
       },
+      "CommentHookConfig": {
+        "description": "Comment-source webhook filters (only used when event = 'comment'). Stored as JSON on the hook.",
+        "title": "Comment Hook Config",
+        "type": "object",
+        "properties": {
+          "mention": {
+            "type": "object",
+            "description": "Only fire for comments that @mention a user.",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "scope": {
+                "type": "string",
+                "enum": ["anyone", "specific"],
+                "description": "anyone = any mention; specific = only mentions of user_ids"
+              },
+              "user_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "commenter": {
+            "type": "object",
+            "description": "Include or exclude comments authored by specific users (e.g. exclude API/automation accounts to prevent loops).",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "mode": {
+                "type": "string",
+                "enum": ["include", "exclude"]
+              },
+              "user_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
       "Hook": {
         "description": "Model for Hook",
         "examples": [
@@ -24732,7 +24779,8 @@
               "field",
               "after",
               "before",
-              "manual"
+              "manual",
+              "comment"
             ],
             "type": "string",
             "description": "Event Type for the operation",
@@ -24761,7 +24809,12 @@
                 "insert",
                 "update",
                 "delete",
-                "trigger"
+                "trigger",
+                "added",
+                "edited",
+                "deleted",
+                "resolved",
+                "reopened"
               ],
               "type": "string"
             },
@@ -24814,6 +24867,17 @@
             "items": {
               "type": "string"
             }
+          },
+          "comment_config": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CommentHookConfig"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Comment-source filters (mention / commenter). Only used when event = 'comment'."
           }
         }
       },
@@ -24867,7 +24931,8 @@
               "field",
               "after",
               "before",
-              "manual"
+              "manual",
+              "comment"
             ],
             "type": "string",
             "description": "Event Type for the operation",
@@ -24896,7 +24961,12 @@
                 "insert",
                 "update",
                 "delete",
-                "trigger"
+                "trigger",
+                "added",
+                "edited",
+                "deleted",
+                "resolved",
+                "reopened"
               ],
               "type": "string"
             },
@@ -24953,6 +25023,17 @@
             "items": {
               "$ref": "#/components/schemas/FilterReq"
             }
+          },
+          "comment_config": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CommentHookConfig"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Comment-source filters (mention / commenter). Only used when event = 'comment'."
           }
         },
         "required": [
@@ -25101,7 +25182,8 @@
               "view",
               "after",
               "before",
-              "manual"
+              "manual",
+              "comment"
             ]
           },
           "execution_time": {
@@ -25128,7 +25210,12 @@
               "insert",
               "update",
               "delete",
-              "trigger"
+              "trigger",
+              "added",
+              "edited",
+              "deleted",
+              "resolved",
+              "reopened"
             ],
             "example": "insert"
           },
