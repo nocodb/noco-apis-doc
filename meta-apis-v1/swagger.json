@@ -30638,17 +30638,13 @@
           },
           "frequency": {
             "type": "string",
-            "enum": ["hourly", "daily", "weekly", "monthly", "cron"],
+            "enum": ["daily", "weekly", "monthly", "cron"],
             "description": "Schedule frequency preset or custom cron"
           },
           "config": {
             "type": "object",
             "description": "Frequency-specific configuration",
             "properties": {
-              "minute": {
-                "type": "integer",
-                "description": "Minute of the hour (hourly)"
-              },
               "time": {
                 "type": "string",
                 "description": "Time of day HH:mm (daily/weekly/monthly)"
