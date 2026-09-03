@@ -29063,6 +29063,14 @@
             "description": "Access token version",
             "type": "string"
           },
+          "blocked": {
+            "type": "boolean",
+            "description": "Set to true when the user has been blocked by an administrator."
+          },
+          "blocked_reason": {
+            "type": "string",
+            "description": "Operator-facing reason a user was blocked. Never echoed to the blocked user."
+          },
           "meta": {
             "$ref": "#/components/schemas/Meta",
             "description": "Meta data for user"
