@@ -23369,12 +23369,19 @@
           },
           "logical_op": {
             "description": "Logical Operator",
-            "enum": [
-              "and",
-              "not",
-              "or"
-            ],
-            "type": "string"
+            "anyOf": [
+              {
+                "enum": [
+                  "and",
+                  "not",
+                  "or"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "value": {
             "description": "The filter value. Can be NULL for some operators."
