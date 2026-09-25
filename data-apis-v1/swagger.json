@@ -13477,6 +13477,11 @@
                     "description": "PKCE code challenge method",
                     "example": "S256"
                   },
+                  "scope": {
+                    "type": "string",
+                    "description": "Space-delimited capability scopes the client is requesting, each '<category>:<level>' with level read, write or delete (e.g. records:read). When present the consent is locked to exactly these permissions and records no tools. EE only.",
+                    "example": "records:read tables:read"
+                  },
                   "workspace_id": {
                     "type": "string",
                     "description": "Workspace the consent is limited to. EE only.",
