@@ -27926,6 +27926,12 @@
           "error": {
             "description": "Error Message",
             "type": "string"
+          },
+          "result_uidt": {
+            "description": "Resolved result type, set when the rollup returns a date (min/max over a Date, DateTime, CreatedTime or LastModifiedTime field). Read-only, not persisted.",
+            "type": "string",
+            "readOnly": true,
+            "enum": ["Date", "DateTime"]
           }
         },
         "x-stoplight": {
