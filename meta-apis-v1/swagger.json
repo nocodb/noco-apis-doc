@@ -27914,6 +27914,7 @@
             "example": "count",
             "enum": [
               "count",
+              "countAll",
               "min",
               "max",
               "avg",
@@ -27970,6 +27971,7 @@
               "avg",
               "avgDistinct",
               "count",
+              "countAll",
               "countDistinct",
               "max",
               "min",
