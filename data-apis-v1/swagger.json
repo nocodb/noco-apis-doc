@@ -15620,6 +15620,12 @@
         "description": "Return the number of comments in the given query.",
         "parameters": [
           {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "in": "query",
             "name": "ids",
             "required": true,
