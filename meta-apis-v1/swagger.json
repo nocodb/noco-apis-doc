@@ -6700,6 +6700,7 @@
       ],
       "patch": {
         "summary": "Update View Column",
+        "description": "On a grid, `width`, `group_by`, `group_by_order` and `group_by_sort` are accepted but not stored by this route: use `PATCH /api/v1/db/meta/grid-columns/{columnId}` for those.",
         "operationId": "db-view-column-update",
         "responses": {
           "200": {
