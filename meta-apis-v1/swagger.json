@@ -28411,6 +28411,16 @@
             "$ref": "#/components/schemas/StringOrNull",
             "description": "When set, scopes this sort to a lookup column (it orders that lookup's relation sub-query) instead of a view"
           },
+          "order_by": {
+            "type": "string",
+            "description": "How a SingleSelect field is ordered: `alphabetical` (default, by option text) or `option_order` (by the field's option order). Only SingleSelect fields support `option_order`.",
+            "enum": [
+              "alphabetical",
+              "option_order",
+              null
+            ],
+            "nullable": true
+          },
           "enabled": {
             "type": "boolean",
             "description": "Whether this sort is enabled. Disabled sorts are skipped during evaluation.",
@@ -28536,6 +28546,16 @@
           "enabled": {
             "type": "boolean",
             "description": "Whether this sort is enabled. Disabled sorts are skipped during evaluation.",
+            "nullable": true
+          },
+          "order_by": {
+            "type": "string",
+            "description": "How a SingleSelect field is ordered: `alphabetical` (default, by option text) or `option_order` (by the field's option order). Only SingleSelect fields support `option_order`.",
+            "enum": [
+              "alphabetical",
+              "option_order",
+              null
+            ],
             "nullable": true
           },
           "order": {
