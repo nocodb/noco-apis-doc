@@ -27465,8 +27465,7 @@
             "enum": [
               "database",
               "documentation",
-              "dashboard",
-              "code"
+              "dashboard"
             ]
           },
           "linked_db_projects": {
