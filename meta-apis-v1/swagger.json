@@ -13594,13 +13594,23 @@
                   },
                   "tools": {
                     "type": "array",
-                    "description": "MCP tool allowlist for this authorization. Every name must exist in the server's tool catalog. Only meaningful alongside scopes.",
+                    "description": "MCP tool allowlist for this authorization. Every name must exist in the server's tool catalog. Only meaningful alongside scopes. Opt-in tools (deleteBase, executeWorkflow, testHook) are refused here: they are switched on through opt_in_tools.",
                     "items": {
                       "type": "string"
                     },
                     "example": [
                       "listTables",
                       "listRecords"
+                    ]
+                  },
+                  "opt_in_tools": {
+                    "type": "array",
+                    "description": "Opt-in MCP tools the user switched on for this authorization on the consent screen; all are off unless named here. Nothing in the client's authorization request sets them. Refused (invalid_scope) without scopes. A name that is not an opt-in tool, or, on a consent locked by scope, a tool the requested scope cannot reach (e.g. deleteBase without base:delete), is refused with a 400. EE only.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "deleteBase"
                     ]
                   }
                 }
