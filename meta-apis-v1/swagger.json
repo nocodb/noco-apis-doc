@@ -28282,8 +28282,13 @@
           "password": {
             "$ref": "#/components/schemas/StringOrNull",
             "description": "Password to restrict access"
+          },
+          "custom_url_path": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Custom URL path of the shared view; `null` removes it"
           }
         },
+        "additionalProperties": false,
         "x-stoplight": {
           "id": "hbj6j87gyi7ap"
         }
