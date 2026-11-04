@@ -21143,6 +21143,15 @@
           "in": "query",
           "description": "Rows per page",
           "required": false
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "search",
+          "in": "query",
+          "description": "Text to search for",
+          "required": false
         }
       ]
     },
