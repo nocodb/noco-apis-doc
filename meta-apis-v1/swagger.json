@@ -25725,6 +25725,22 @@
             "$ref": "#/components/schemas/Meta",
             "description": "Meta Info for Kanban"
           },
+          "summary_fn": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Per-stack summary function (aggregation key)"
+          },
+          "fk_summary_col_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Per-stack summary calculation field"
+          },
+          "summary_label": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Per-stack summary label ({ mode, text })"
+          },
+          "summary_colors": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Per-stack summary colour rules ({ rules, default_color })"
+          },
           "title": {
             "type": "string",
             "description": "Kanban Title",
@@ -25879,6 +25895,22 @@
               "id": "stsvdmkli1b0r"
             },
             "description": "Meta Info"
+          },
+          "summary_fn": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Per-stack summary function (aggregation key)"
+          },
+          "fk_summary_col_id": {
+            "$ref": "#/components/schemas/StringOrNull",
+            "description": "Per-stack summary calculation field"
+          },
+          "summary_label": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Per-stack summary label ({ mode, text })"
+          },
+          "summary_colors": {
+            "$ref": "#/components/schemas/Meta",
+            "description": "Per-stack summary colour rules ({ rules, default_color })"
           }
         },
         "x-stoplight": {
