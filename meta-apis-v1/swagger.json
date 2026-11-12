@@ -608,6 +608,10 @@
                       },
                       "description": "Success Message",
                       "example": "Password has been reset successfully"
+                    },
+                    "appsDisconnected": {
+                      "type": "boolean",
+                      "description": "Whether apps and tokens were disconnected. False when disconnectApps was asked for but failed; the password is reset either way."
                     }
                   }
                 },
@@ -27181,6 +27185,10 @@
           }
         ],
         "properties": {
+          "disconnectApps": {
+            "description": "Also revoke OAuth grants and the user's API, MCP and app tokens. Sessions are always ended.",
+            "type": "boolean"
+          },
           "currentPassword": {
             "minLength": 8,
             "maxLength": 128,
@@ -27233,6 +27241,10 @@
           }
         ],
         "properties": {
+          "disconnectApps": {
+            "description": "Also revoke OAuth grants and the user's API, MCP and app tokens. Sessions are always ended.",
+            "type": "boolean"
+          },
           "password": {
             "description": "New password",
             "example": "newpassword",
